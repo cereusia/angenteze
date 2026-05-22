@@ -38,6 +38,51 @@
           }
         }
       }
+    },
+    {
+      "name": "agenteze.memory.capture_note",
+      "description": "Contrato futuro para registrar uma nota na memoria local quando o usuario pedir explicitamente.",
+      "category": "write",
+      "risk": "medium",
+      "requires_confirmation": true,
+      "enabled": true,
+      "activation": {
+        "prompt_contains": [
+          "gravar memoria",
+          "salvar memoria",
+          "registrar memoria",
+          "guardar memoria"
+        ]
+      },
+      "scope": {
+        "workspace_bound": true,
+        "network": false,
+        "filesystem_write": true,
+        "process_execution": false
+      },
+      "audit": {
+        "input": "summary",
+        "output": "summary",
+        "store_events": true
+      },
+      "input_schema": {
+        "type": "object",
+        "required": ["note"],
+        "properties": {
+          "note": {
+            "type": "string"
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
     }
   ]
 }

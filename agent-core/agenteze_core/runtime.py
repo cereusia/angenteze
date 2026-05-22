@@ -18,14 +18,22 @@ class AgentRuntime:
         try:
             request.validate()
             memory_summary = self.memory_store.recent_summary()
-            mcp_events = self.mcp_client.describe_available_tools()
+            mcp_events = self.mcp_client.describe_available_tools(
+                prompt=request.prompt,
+                confirmed_tools=request.confirmed_tools,
+            )
             tool_count = len(mcp_events)
+            pending_count = sum(
+                1 for event in mcp_events if event.permission == "confirmation_required"
+            )
+            confirmed_count = sum(1 for event in mcp_events if event.permission == "confirmed")
 
             message = (
                 "Ze recebeu a intencao e esta operando no backend local do MVP v0.1.\n\n"
                 f"Entrada: {request.prompt}\n\n"
                 f"{memory_summary}\n"
                 f"MCP client carregado com {tool_count} contrato(s) de ferramenta.\n\n"
+                f"Confirmacoes MCP pendentes: {pending_count}. Confirmadas: {confirmed_count}.\n\n"
                 "Escopo atual: sem voz, sem browser, sem automacao ampla e sem multiagente."
             )
 

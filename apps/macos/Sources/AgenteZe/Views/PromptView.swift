@@ -9,6 +9,7 @@ struct PromptView: View {
             header
             promptEditor
             actions
+            confirmationPanel
             responsePanel
         }
         .padding(18)
@@ -97,6 +98,63 @@ struct PromptView: View {
         .padding(12)
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+
+    @ViewBuilder
+    private var confirmationPanel: some View {
+        let pendingEvents = appState.pendingConfirmationEvents
+
+        if !pendingEvents.isEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.shield")
+                        .foregroundStyle(.orange)
+
+                    Text("Confirmacao MCP")
+                        .font(.headline)
+                }
+
+                ForEach(pendingEvents) { event in
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(event.toolName)
+                                    .font(.subheadline.weight(.semibold))
+                                    .lineLimit(1)
+
+                                Text("\(event.risk.uppercased()) · \(event.reason)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(2)
+                            }
+
+                            Spacer()
+
+                            Button {
+                                appState.denyTool(event)
+                            } label: {
+                                Label("Negar", systemImage: "xmark.circle")
+                            }
+
+                            Button {
+                                appState.confirmTool(event)
+                            } label: {
+                                Label("Confirmar", systemImage: "checkmark.circle")
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.quaternary)
+                    )
+                }
+            }
+            .padding(12)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
     }
 
     private var mcpSummary: String {

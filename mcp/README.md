@@ -25,3 +25,11 @@ Riscos iniciais:
 - `critical`: negado no MVP v0.1.
 
 Ferramentas sem nome, com risco invalido ou marcadas como `enabled: false` sao negadas.
+
+## Confirmacao no App
+
+Ferramentas `medium` e `high` ativadas por intencao retornam `confirmation_required`.
+
+O app macOS pode reenviar a mesma requisicao com `--confirm-tool <nome>` para marcar a ferramenta como `confirmed`.
+
+No MVP v0.1, confirmacao nao executa ferramentas reais.

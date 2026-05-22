@@ -20,6 +20,9 @@ struct AgentResponse: Decodable {
 
 struct MCPEvent: Decodable, Identifiable {
     var id: String { toolName }
+    var isPendingConfirmation: Bool {
+        permission == "confirmation_required" && requiresConfirmation
+    }
 
     let toolName: String
     let status: String

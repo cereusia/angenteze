@@ -28,9 +28,39 @@ class AgentCoreTests(unittest.TestCase):
 
             self.assertEqual(response.status, "ok")
             self.assertIn("backend local", response.message)
-            self.assertGreaterEqual(len(response.mcp_events), 1)
+            self.assertEqual(len(response.mcp_events), 1)
             self.assertEqual(response.mcp_events[0].permission, "allow")
             self.assertIn("status do MVP", store.recent_summary())
+
+    def test_runtime_requests_confirmation_for_medium_tool_intent(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = MemoryStore(db_path=Path(temp_dir) / "memory.sqlite3", root=ROOT)
+            runtime = AgentRuntime(memory_store=store)
+
+            response = runtime.handle(
+                AgentRequest.from_prompt("gravar memoria: checkpoint MCP")
+            )
+
+            permissions = {event.tool_name: event.permission for event in response.mcp_events}
+            self.assertEqual(
+                permissions["agenteze.memory.capture_note"],
+                "confirmation_required",
+            )
+
+    def test_runtime_accepts_confirmed_medium_tool(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = MemoryStore(db_path=Path(temp_dir) / "memory.sqlite3", root=ROOT)
+            runtime = AgentRuntime(memory_store=store)
+
+            response = runtime.handle(
+                AgentRequest.from_prompt(
+                    "gravar memoria: checkpoint MCP",
+                    confirmed_tools=["agenteze.memory.capture_note"],
+                )
+            )
+
+            permissions = {event.tool_name: event.permission for event in response.mcp_events}
+            self.assertEqual(permissions["agenteze.memory.capture_note"], "confirmed")
 
     def test_cli_status_outputs_json(self) -> None:
         command = [
@@ -58,6 +88,37 @@ class AgentCoreTests(unittest.TestCase):
         self.assertGreaterEqual(payload["mcp"]["tool_count"], 1)
         self.assertEqual(payload["mcp"]["tools"][0]["effect"], "allow")
 
+    def test_cli_accepts_confirm_tool_argument(self) -> None:
+        command = [
+            sys.executable,
+            "-m",
+            "agenteze_core",
+            "run",
+            "--prompt",
+            "gravar memoria: teste",
+            "--confirm-tool",
+            "agenteze.memory.capture_note",
+        ]
+        completed = subprocess.run(
+            command,
+            cwd=ROOT,
+            env={
+                **os.environ,
+                "PYTHONPATH": str(ROOT / "agent-core"),
+                "AGENTEZE_ROOT": str(ROOT),
+            },
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        payload = json.loads(completed.stdout)
+        permissions = {
+            event["tool_name"]: event["permission"]
+            for event in payload["mcp_events"]
+        }
+        self.assertEqual(permissions["agenteze.memory.capture_note"], "confirmed")
+
     def test_mcp_permission_policy_gates_risk_levels(self) -> None:
         policy = MCPPermissionPolicy()
 
@@ -66,6 +127,10 @@ class AgentCoreTests(unittest.TestCase):
         )
         medium = policy.evaluate(
             {"name": "files.write", "risk": "medium", "requires_confirmation": False}
+        )
+        confirmed_medium = policy.evaluate(
+            {"name": "files.write", "risk": "medium", "requires_confirmation": False},
+            confirmed_tools={"files.write"},
         )
         critical = policy.evaluate(
             {"name": "system.delete", "risk": "critical", "requires_confirmation": True}
@@ -76,6 +141,7 @@ class AgentCoreTests(unittest.TestCase):
 
         self.assertEqual(low.effect, "allow")
         self.assertEqual(medium.effect, "confirmation_required")
+        self.assertEqual(confirmed_medium.effect, "confirmed")
         self.assertEqual(critical.effect, "deny")
         self.assertEqual(invalid.effect, "deny")
 

@@ -26,10 +26,18 @@ class MCPClient:
     def tools(self) -> list[dict[str, Any]]:
         return list(self.registry().get("tools", []))
 
-    def describe_available_tools(self) -> list[MCPEvent]:
+    def describe_available_tools(
+        self,
+        prompt: str = "",
+        confirmed_tools: list[str] | None = None,
+    ) -> list[MCPEvent]:
         events: list[MCPEvent] = []
+        confirmed = set(confirmed_tools or [])
         for tool in self.tools():
-            decision = self.permission_policy.evaluate(tool)
+            if not self._is_active_for_prompt(tool, prompt):
+                continue
+
+            decision = self.permission_policy.evaluate(tool, confirmed_tools=confirmed)
             status = "available" if decision.effect == "allow" else decision.effect
             events.append(
                 MCPEvent(
@@ -55,3 +63,12 @@ class MCPClient:
                 for tool in tools
             ],
         }
+
+    def _is_active_for_prompt(self, tool: dict[str, Any], prompt: str) -> bool:
+        activation = tool.get("activation")
+        if not activation:
+            return True
+
+        prompt_contains = activation.get("prompt_contains", [])
+        normalized_prompt = prompt.lower()
+        return any(str(term).lower() in normalized_prompt for term in prompt_contains)

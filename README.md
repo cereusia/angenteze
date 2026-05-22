@@ -24,6 +24,7 @@ Ja existe:
 - memoria SQLite inicial;
 - registry MCP local;
 - politica local de permissao MCP;
+- UI de confirmacao MCP;
 - app macOS SwiftUI via SwiftPM;
 - menu bar app;
 - hotkey global;

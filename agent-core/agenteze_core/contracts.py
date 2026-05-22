@@ -16,15 +16,22 @@ class AgentRequest:
     prompt: str
     source: str
     created_at: str
+    confirmed_tools: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
-    def from_prompt(cls, prompt: str, source: str = "macos") -> "AgentRequest":
+    def from_prompt(
+        cls,
+        prompt: str,
+        source: str = "macos",
+        confirmed_tools: list[str] | None = None,
+    ) -> "AgentRequest":
         return cls(
             request_id=str(uuid4()),
             prompt=prompt.strip(),
             source=source,
             created_at=utc_now_iso(),
+            confirmed_tools=confirmed_tools or [],
         )
 
     def validate(self) -> None:
@@ -39,6 +46,7 @@ class AgentRequest:
             "prompt": self.prompt,
             "source": self.source,
             "created_at": self.created_at,
+            "confirmed_tools": self.confirmed_tools,
             "metadata": self.metadata,
         }
 

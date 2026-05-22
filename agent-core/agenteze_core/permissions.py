@@ -28,7 +28,12 @@ class PermissionDecision:
 class MCPPermissionPolicy:
     """Local-first permission gate for MCP tool contracts."""
 
-    def evaluate(self, tool: dict[str, Any]) -> PermissionDecision:
+    def evaluate(
+        self,
+        tool: dict[str, Any],
+        confirmed_tools: set[str] | None = None,
+    ) -> PermissionDecision:
+        confirmed_tools = confirmed_tools or set()
         name = str(tool.get("name", "")).strip()
         risk = str(tool.get("risk", "")).strip().lower()
         requires_confirmation = bool(tool.get("requires_confirmation", False))
@@ -67,6 +72,15 @@ class MCPPermissionPolicy:
                 effect="deny",
                 reason="critical tools are outside MVP v0.1",
                 requires_confirmation=True,
+            )
+
+        if name in confirmed_tools and risk in {"medium", "high"}:
+            return PermissionDecision(
+                tool_name=name,
+                risk=risk,
+                effect="confirmed",
+                reason="tool was explicitly confirmed for this request",
+                requires_confirmation=False,
             )
 
         if requires_confirmation or risk in {"medium", "high"}:

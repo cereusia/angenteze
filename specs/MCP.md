@@ -79,6 +79,13 @@ Modelo inicial:
 - `critical`: negado no MVP v0.1.
 - risco invalido, ferramenta sem nome ou ferramenta desabilitada: negado.
 
+Confirmacao inicial:
+
+- ferramentas `medium` ou `high` podem ser ativadas por intencao;
+- o app deve exibir confirmacao explicita;
+- a confirmacao e enviada ao backend como `--confirm-tool`;
+- no MVP v0.1, confirmacao nao implica execucao real de ferramenta.
+
 ## Auditoria
 
 Registrar, no minimo:

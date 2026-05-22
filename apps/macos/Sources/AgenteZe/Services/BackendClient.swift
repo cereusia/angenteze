@@ -3,17 +3,17 @@ import Foundation
 struct BackendClient {
     var repositoryRoot: URL = RepositoryRootResolver.resolve()
 
-    func send(prompt: String) async throws -> AgentResponse {
+    func send(prompt: String, confirmedTools: [String] = []) async throws -> AgentResponse {
         try await Task.detached(priority: .userInitiated) {
-            try run(prompt: prompt)
+            try run(prompt: prompt, confirmedTools: confirmedTools)
         }.value
     }
 
-    private func run(prompt: String) throws -> AgentResponse {
+    private func run(prompt: String, confirmedTools: [String]) throws -> AgentResponse {
         let corePath = repositoryRoot.appendingPathComponent("agent-core")
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [
+        var arguments = [
             "python3",
             "-m",
             "agenteze_core",
@@ -23,6 +23,13 @@ struct BackendClient {
             "--source",
             "macos"
         ]
+
+        for toolName in confirmedTools.sorted() {
+            arguments.append("--confirm-tool")
+            arguments.append(toolName)
+        }
+
+        process.arguments = arguments
         process.currentDirectoryURL = repositoryRoot
 
         var environment = ProcessInfo.processInfo.environment

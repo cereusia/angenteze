@@ -15,6 +15,7 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run", help="Process a prompt")
     run_parser.add_argument("--prompt", required=True)
     run_parser.add_argument("--source", default="macos")
+    run_parser.add_argument("--confirm-tool", action="append", default=[])
 
     subparsers.add_parser("status", help="Return backend status")
     return parser
@@ -26,7 +27,11 @@ def main(argv: list[str] | None = None) -> int:
     runtime = AgentRuntime()
 
     if args.command == "run":
-        request = AgentRequest.from_prompt(prompt=args.prompt, source=args.source)
+        request = AgentRequest.from_prompt(
+            prompt=args.prompt,
+            source=args.source,
+            confirmed_tools=args.confirm_tool,
+        )
         response = runtime.handle(request)
         print(json.dumps(response.to_dict(), ensure_ascii=False))
         return 0
