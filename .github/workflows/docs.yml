@@ -1,0 +1,42 @@
+name: Docs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  required-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required documentation
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "AGENTS.md"
+            "README.md"
+            "LICENSE"
+            "CONTRIBUTING.md"
+            "ROADMAP.md"
+            "DIAGNOSTICO_INICIAL.md"
+            "specs/VISION.md"
+            "specs/ARCHITECTURE.md"
+            "specs/AGENTS.md"
+            "specs/MCP.md"
+            "specs/SECURITY.md"
+            "docs/adr/0000-template.md"
+            "docs/adr/0001-base-local-first.md"
+          )
+
+          for file in "${required_files[@]}"; do
+            test -s "$file"
+          done
+
+      - name: Check README normalization
+        run: |
+          set -euo pipefail
+          ! grep -F "cat > README.md" README.md
