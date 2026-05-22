@@ -11,6 +11,8 @@ Data: 2026-05-22
 - MCP real: contrato/registry local inicial em `mcp/registry.json`; sem servidor MCP real.
 - Permissao MCP: policy local inicial no `agent-core`, com `low` permitido, `medium`/`high` pendentes de confirmacao e `critical` negado.
 - Confirmacao MCP: UI no prompt macOS para confirmar/negar ferramentas pendentes; confirmacao reenvia o prompt com `--confirm-tool`, sem execucao real.
+- Referencia `claude-code`: analisada em modo clean-room; codigo nao deve ser copiado nem versionado.
+- Comandos locais: `/help`, `/status`, `/memory` e `/mcp` implementados no `agent-core`.
 - Memoria SQLite real: schema inicial em `memory/schema.sql`, runtime em `.ze/agenteze.sqlite3`.
 - Personagem 3D: especificacao, blueprint Blender, referencias, contrato de interacao, mapa de emocoes/animacoes e manifest JSON criados em `docs/character/` e `assets/character/agente-ze/`.
 - Git local: inicializado na branch `main`.
@@ -45,6 +47,8 @@ Data: 2026-05-22
 - `docs/adr/0002-swiftui-python-process-bridge.md`
 - `docs/adr/0003-mcp-permission-model.md`
 - `docs/adr/0004-mcp-confirmation-ui.md`
+- `docs/adr/0005-clean-room-reference-boundary.md`
+- `docs/research/claude-code-reference-analysis.md`
 - `docs/character/agente-ze-character-spec.md`
 - `docs/character/agente-ze-emotion-system.md`
 - `docs/character/agente-ze-animation-map.md`
@@ -59,6 +63,7 @@ Data: 2026-05-22
 
 - Confirmar nome definitivo do remoto: `angenteze` ou `agenteze`.
 - Definir empacotamento final do Python junto ao app macOS.
+- Expandir comandos locais seguros e contexto Git/memoria.
 - Implementar execucao real de ferramentas MCP atras da confirmacao.
 - Definir retencao/exclusao de memoria.
 - Evoluir logs auditaveis.

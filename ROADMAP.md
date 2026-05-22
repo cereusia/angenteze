@@ -42,6 +42,7 @@ Objetivo: criar o nucleo Python local.
 - Registro de eventos. Concluido localmente.
 - Politica inicial de permissao. Parcial.
 - API local simples para o app. Concluido como processo local JSON.
+- Comandos slash locais. Parcial: `/help`, `/status`, `/memory`, `/mcp`.
 
 ## P4 - Memoria Local
 

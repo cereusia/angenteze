@@ -33,6 +33,8 @@ jobs:
             "docs/adr/0002-swiftui-python-process-bridge.md"
             "docs/adr/0003-mcp-permission-model.md"
             "docs/adr/0004-mcp-confirmation-ui.md"
+            "docs/adr/0005-clean-room-reference-boundary.md"
+            "docs/research/claude-code-reference-analysis.md"
           )
 
           for file in "${required_files[@]}"; do

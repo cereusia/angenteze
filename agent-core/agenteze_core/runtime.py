@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from .commands import CommandRegistry
 from .contracts import AgentRequest, AgentResponse
 from .mcp_client import MCPClient
 from .memory import MemoryStore
@@ -10,13 +11,31 @@ class AgentRuntime:
         self,
         memory_store: MemoryStore | None = None,
         mcp_client: MCPClient | None = None,
+        command_registry: CommandRegistry | None = None,
     ) -> None:
         self.memory_store = memory_store or MemoryStore()
         self.mcp_client = mcp_client or MCPClient()
+        self.command_registry = command_registry or CommandRegistry(
+            memory_store=self.memory_store,
+            mcp_client=self.mcp_client,
+        )
 
     def handle(self, request: AgentRequest) -> AgentResponse:
         try:
             request.validate()
+
+            if self.command_registry.can_handle(request.prompt):
+                command_result = self.command_registry.handle(request.prompt)
+                response = AgentResponse(
+                    request_id=request.request_id,
+                    status="ok",
+                    message=command_result.message,
+                    memory_summary=self.memory_store.recent_summary(),
+                    mcp_events=[],
+                )
+                self.memory_store.record_interaction(request, response)
+                return response
+
             memory_summary = self.memory_store.recent_summary()
             mcp_events = self.mcp_client.describe_available_tools(
                 prompt=request.prompt,

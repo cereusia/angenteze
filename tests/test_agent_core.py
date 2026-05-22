@@ -42,10 +42,35 @@ class AgentCoreTests(unittest.TestCase):
             )
 
             permissions = {event.tool_name: event.permission for event in response.mcp_events}
-            self.assertEqual(
-                permissions["agenteze.memory.capture_note"],
-                "confirmation_required",
-            )
+        self.assertEqual(
+            permissions["agenteze.memory.capture_note"],
+            "confirmation_required",
+        )
+
+    def test_runtime_handles_slash_commands(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = MemoryStore(db_path=Path(temp_dir) / "memory.sqlite3", root=ROOT)
+            runtime = AgentRuntime(memory_store=store)
+
+            help_response = runtime.handle(AgentRequest.from_prompt("/help"))
+            status_response = runtime.handle(AgentRequest.from_prompt("/status"))
+            memory_response = runtime.handle(AgentRequest.from_prompt("/memory"))
+            mcp_response = runtime.handle(AgentRequest.from_prompt("/mcp"))
+
+            self.assertIn("/status", help_response.message)
+            self.assertIn("Status local", status_response.message)
+            self.assertIn("Interacoes recentes", memory_response.message)
+            self.assertIn("Contratos MCP", mcp_response.message)
+
+    def test_runtime_handles_unknown_slash_command(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            store = MemoryStore(db_path=Path(temp_dir) / "memory.sqlite3", root=ROOT)
+            runtime = AgentRuntime(memory_store=store)
+
+            response = runtime.handle(AgentRequest.from_prompt("/nao-existe"))
+
+            self.assertEqual(response.status, "ok")
+            self.assertIn("Comando desconhecido", response.message)
 
     def test_runtime_accepts_confirmed_medium_tool(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

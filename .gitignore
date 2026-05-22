@@ -10,6 +10,9 @@ __pycache__/
 .vscode/
 .idea/
 
+# Local external references
+ReferenciasTecnicas/
+
 # Logs
 logs/
 *.log

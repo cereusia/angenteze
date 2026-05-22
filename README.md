@@ -79,6 +79,15 @@ Run macOS:
 ./script/build_and_run.sh
 ```
 
+## Comandos Locais
+
+O prompt aceita comandos slash reimplementados no `agent-core`:
+
+- `/help`
+- `/status`
+- `/memory`
+- `/mcp`
+
 ## Licenca
 
 GNU Affero General Public License v3.0. Veja `LICENSE`.
