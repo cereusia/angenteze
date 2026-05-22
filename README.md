@@ -16,7 +16,18 @@ Transformar intencao em acao com um operador local, auditavel e seguro.
 
 ## Status
 
-Projeto em fase inicial de especificacao. A prioridade atual e documentacao, arquitetura e seguranca antes de codigo.
+Projeto em fase inicial executavel do MVP v0.1.
+
+Ja existe:
+
+- backend local Python;
+- memoria SQLite inicial;
+- registry MCP local;
+- app macOS SwiftUI via SwiftPM;
+- menu bar app;
+- hotkey global;
+- prompt principal;
+- CI inicial.
 
 ## Documentos Principais
 
@@ -39,6 +50,32 @@ Projeto em fase inicial de especificacao. A prioridade atual e documentacao, arq
 - MCP client.
 
 Fora do v0.1: voz, browser embutido, automacao ampla e multiagente completo.
+
+## Execucao Local
+
+Backend:
+
+```bash
+./scripts/run-agent-core.sh run --prompt "status"
+```
+
+Testes Python:
+
+```bash
+./scripts/test-python.sh
+```
+
+Build macOS:
+
+```bash
+./scripts/build-macos.sh
+```
+
+Run macOS:
+
+```bash
+./script/build_and_run.sh
+```
 
 ## Licenca
 

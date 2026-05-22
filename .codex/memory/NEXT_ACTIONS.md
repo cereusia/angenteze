@@ -6,16 +6,16 @@ Preparar o repositorio local para commits e decisoes versionadas.
 
 ## Lista Curta
 
-1. Confirmar nome definitivo do remoto.
-2. Conectar `origin` sem sobrescrever historico.
-3. Criar ADR para o modelo SwiftUI/Python.
-4. Criar ADR para permissao MCP.
-5. So depois iniciar codigo do app macOS.
+1. Validar o app macOS no ambiente local com `./script/build_and_run.sh`.
+2. Iniciar blockout Blender do Agente Ze usando `assets/character/agente-ze/references/` e `BLENDER_MODEL_BLUEPRINT.md`.
+3. Criar ADR para permissao MCP.
+4. Definir empacotamento do Python no app macOS.
+5. Confirmar nome definitivo do remoto.
 
 ## Fora da Proxima Etapa
 
-- Implementar SwiftUI.
-- Implementar Python.
-- Criar SQLite real.
-- Criar ferramentas MCP reais.
+- Voz.
+- Browser.
+- Automacao ampla.
+- Multiagente completo.
 - Publicar release.

@@ -17,7 +17,14 @@ logs/
 # Runtime
 .ze/cache/
 .ze/logs/
+.ze/*.sqlite3
+dist/
 
 # SQLite
 *.db
 *.sqlite
+*.sqlite3
+
+# SwiftPM
+.build/
+.swiftpm/

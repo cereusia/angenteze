@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "transport": "local-contract",
+  "tools": [
+    {
+      "name": "agenteze.prompt.echo",
+      "description": "Contrato MCP local de baixo risco para validar o fluxo prompt -> backend -> resposta.",
+      "risk": "low",
+      "requires_confirmation": false,
+      "input_schema": {
+        "type": "object",
+        "required": ["prompt"],
+        "properties": {
+          "prompt": {
+            "type": "string"
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

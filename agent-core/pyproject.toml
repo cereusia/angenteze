@@ -1,0 +1,9 @@
+[project]
+name = "agenteze-core"
+version = "0.1.0"
+description = "Local backend for Agente Ze"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

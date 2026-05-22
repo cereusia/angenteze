@@ -30,6 +30,7 @@ jobs:
             "specs/SECURITY.md"
             "docs/adr/0000-template.md"
             "docs/adr/0001-base-local-first.md"
+            "docs/adr/0002-swiftui-python-process-bridge.md"
           )
 
           for file in "${required_files[@]}"; do

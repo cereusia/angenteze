@@ -27,41 +27,41 @@ Objetivo: deixar o projeto pronto para contribuicao.
 
 Objetivo: criar o shell SwiftUI.
 
-- Menu bar app.
-- Janela/painel de prompt.
-- Hotkey global.
-- Estado basico de conexao com backend local.
-- Configuracao local minima.
+- Menu bar app. Concluido localmente.
+- Janela/painel de prompt. Concluido localmente.
+- Hotkey global. Concluido localmente.
+- Estado basico de conexao com backend local. Concluido localmente.
+- Configuracao local minima. Parcial.
 
 ## P3 - Agent Core Minimo
 
 Objetivo: criar o nucleo Python local.
 
-- Entrada de prompt.
-- Resposta estruturada.
-- Registro de eventos.
-- Politica inicial de permissao.
-- API local simples para o app.
+- Entrada de prompt. Concluido localmente.
+- Resposta estruturada. Concluido localmente.
+- Registro de eventos. Concluido localmente.
+- Politica inicial de permissao. Parcial.
+- API local simples para o app. Concluido como processo local JSON.
 
 ## P4 - Memoria Local
 
 Objetivo: persistir contexto minimo com SQLite.
 
-- Schema inicial.
-- Configuracoes.
-- Historico.
-- Eventos de ferramenta.
-- Retencao e exclusao.
+- Schema inicial. Concluido localmente.
+- Configuracoes. Parcial.
+- Historico. Concluido localmente.
+- Eventos de ferramenta. Parcial.
+- Retencao e exclusao. Pendente.
 
 ## P5 - MCP Inicial
 
 Objetivo: conectar ferramentas por contrato.
 
-- Cliente MCP.
-- Registry de ferramentas.
-- Primeira ferramenta de leitura segura.
-- Logs auditaveis.
-- Confirmacao para execucao sensivel.
+- Cliente MCP. Concluido como contrato local.
+- Registry de ferramentas. Concluido localmente.
+- Primeira ferramenta de leitura segura. Parcial: contrato local de baixo risco.
+- Logs auditaveis. Parcial.
+- Confirmacao para execucao sensivel. Pendente.
 
 ## P6 - Agentes Especialistas
 

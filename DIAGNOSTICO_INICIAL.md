@@ -128,15 +128,13 @@ Dentro do escopo:
 - Preparacao para SwiftUI, Python, SQLite e MCP.
 - Preparacao para contribuicao open source.
 
-Fora do escopo agora:
+Fora do escopo da primeira base executavel:
 
-- Codigo SwiftUI.
-- Codigo Python.
-- Banco SQLite real.
+- Acabamento visual.
 - Servidores MCP reais.
 - Automacao de sistema operacional.
 - Browser, voz e multiagente completo.
-- CI funcional antes de haver codigo/testes.
+- Publicacao de release.
 
 ## Especialistas e Gates
 

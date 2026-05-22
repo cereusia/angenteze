@@ -5,11 +5,12 @@ Data: 2026-05-22
 ## Estado Atual
 
 - Workspace local: `/Users/roberto/ProjetosCereus/AgenteZe`.
-- Fase: base documental inicial.
-- Codigo de app: ainda inexistente.
-- Codigo Python: ainda inexistente.
-- MCP real: ainda inexistente.
-- Memoria SQLite real: ainda inexistente.
+- Fase: primeira base executavel do MVP v0.1.
+- Codigo de app: SwiftPM em `apps/macos`.
+- Codigo Python: backend local em `agent-core/agenteze_core`.
+- MCP real: contrato/registry local inicial em `mcp/registry.json`; sem servidor MCP real.
+- Memoria SQLite real: schema inicial em `memory/schema.sql`, runtime em `.ze/agenteze.sqlite3`.
+- Personagem 3D: especificacao, blueprint Blender, referencias, contrato de interacao, mapa de emocoes/animacoes e manifest JSON criados em `docs/character/` e `assets/character/agente-ze/`.
 - Git local: inicializado na branch `main`.
 - Commit inicial local: criado com a mensagem `docs: bootstrap Agente Ze project`.
 - Remoto: ainda nao configurado.
@@ -30,11 +31,31 @@ Data: 2026-05-22
 - `docs/adr/0000-template.md`
 - `docs/adr/0001-base-local-first.md`
 - `.github/workflows/docs.yml`
+- `.github/workflows/ci.yml`
+- `apps/macos/Package.swift`
+- `agent-core/agenteze_core/`
+- `memory/schema.sql`
+- `mcp/registry.json`
+- `scripts/run-agent-core.sh`
+- `scripts/test-python.sh`
+- `scripts/build-macos.sh`
+- `script/build_and_run.sh`
+- `docs/adr/0002-swiftui-python-process-bridge.md`
+- `docs/character/agente-ze-character-spec.md`
+- `docs/character/agente-ze-emotion-system.md`
+- `docs/character/agente-ze-animation-map.md`
+- `docs/character/agente-ze-interaction-contract.md`
+- `docs/character/agente-ze-implementation-plan.md`
+- `docs/character/agente-ze-specialists.md`
+- `assets/character/agente-ze/agente-ze.character.json`
+- `assets/character/agente-ze/blender/BLENDER_MODEL_BLUEPRINT.md`
+- `assets/character/agente-ze/references/`
 
 ## Riscos Abertos
 
 - Confirmar nome definitivo do remoto: `angenteze` ou `agenteze`.
-- Definir comunicacao entre SwiftUI e Python.
+- Definir empacotamento final do Python junto ao app macOS.
 - Definir modelo de permissao MCP.
-- Definir schema inicial de memoria.
-- Definir estrategia de CI quando houver codigo.
+- Definir retencao/exclusao de memoria.
+- Evoluir logs auditaveis.
+- Iniciar modelagem Blender a partir do board visual e do blueprint.
