@@ -23,6 +23,7 @@ Ja existe:
 - backend local Python;
 - memoria SQLite inicial;
 - registry MCP local;
+- politica local de permissao MCP;
 - app macOS SwiftUI via SwiftPM;
 - menu bar app;
 - hotkey global;

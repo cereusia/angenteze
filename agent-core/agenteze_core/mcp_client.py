@@ -6,12 +6,19 @@ from typing import Any
 
 from .contracts import MCPEvent
 from .paths import mcp_registry_path, project_root
+from .permissions import MCPPermissionPolicy
 
 
 class MCPClient:
-    def __init__(self, registry_path: Path | None = None, root: Path | None = None) -> None:
+    def __init__(
+        self,
+        registry_path: Path | None = None,
+        root: Path | None = None,
+        permission_policy: MCPPermissionPolicy | None = None,
+    ) -> None:
         self.root = root or project_root()
         self.registry_path = registry_path or mcp_registry_path(self.root)
+        self.permission_policy = permission_policy or MCPPermissionPolicy()
 
     def registry(self) -> dict[str, Any]:
         return json.loads(self.registry_path.read_text(encoding="utf-8"))
@@ -22,12 +29,17 @@ class MCPClient:
     def describe_available_tools(self) -> list[MCPEvent]:
         events: list[MCPEvent] = []
         for tool in self.tools():
+            decision = self.permission_policy.evaluate(tool)
+            status = "available" if decision.effect == "allow" else decision.effect
             events.append(
                 MCPEvent(
-                    tool_name=str(tool["name"]),
-                    status="available",
-                    risk=str(tool.get("risk", "unknown")),
+                    tool_name=decision.tool_name,
+                    status=status,
+                    risk=decision.risk,
                     message=str(tool.get("description", "MCP tool contract loaded.")),
+                    permission=decision.effect,
+                    reason=decision.reason,
+                    requires_confirmation=decision.requires_confirmation,
                 )
             )
         return events
@@ -38,5 +50,8 @@ class MCPClient:
             "status": "ready",
             "registry": str(self.registry_path),
             "tool_count": len(tools),
-            "tools": [tool["name"] for tool in tools],
+            "tools": [
+                self.permission_policy.evaluate(tool).to_dict()
+                for tool in tools
+            ],
         }

@@ -14,3 +14,14 @@ Ainda nao ha servidor MCP real nem automacao de sistema operacional.
 - Acoes sensiveis exigem confirmacao.
 - O backend deve registrar eventos auditaveis.
 - Nenhum segredo deve aparecer em logs.
+
+## Permissoes
+
+Riscos iniciais:
+
+- `low`: permitido quando nao exige confirmacao.
+- `medium`: exige confirmacao.
+- `high`: exige confirmacao.
+- `critical`: negado no MVP v0.1.
+
+Ferramentas sem nome, com risco invalido ou marcadas como `enabled: false` sao negadas.

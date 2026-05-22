@@ -25,11 +25,17 @@ struct MCPEvent: Decodable, Identifiable {
     let status: String
     let risk: String
     let message: String
+    let permission: String
+    let reason: String
+    let requiresConfirmation: Bool
 
     enum CodingKeys: String, CodingKey {
         case toolName = "tool_name"
         case status
         case risk
         case message
+        case permission
+        case reason
+        case requiresConfirmation = "requires_confirmation"
     }
 }

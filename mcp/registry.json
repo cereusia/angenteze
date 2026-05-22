@@ -5,8 +5,21 @@
     {
       "name": "agenteze.prompt.echo",
       "description": "Contrato MCP local de baixo risco para validar o fluxo prompt -> backend -> resposta.",
+      "category": "read",
       "risk": "low",
       "requires_confirmation": false,
+      "enabled": true,
+      "scope": {
+        "workspace_bound": true,
+        "network": false,
+        "filesystem_write": false,
+        "process_execution": false
+      },
+      "audit": {
+        "input": "summary",
+        "output": "summary",
+        "store_events": true
+      },
       "input_schema": {
         "type": "object",
         "required": ["prompt"],

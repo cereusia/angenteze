@@ -81,7 +81,7 @@ struct PromptView: View {
                 .lineLimit(2)
 
             if !appState.mcpEvents.isEmpty {
-                Text("MCP: \(appState.mcpEvents.map(\.toolName).joined(separator: ", "))")
+                Text("MCP: \(mcpSummary)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
@@ -97,5 +97,13 @@ struct PromptView: View {
         .padding(12)
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+
+    private var mcpSummary: String {
+        appState.mcpEvents
+            .map { event in
+                "\(event.toolName) [\(event.permission)]"
+            }
+            .joined(separator: ", ")
     }
 }

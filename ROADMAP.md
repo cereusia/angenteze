@@ -61,7 +61,7 @@ Objetivo: conectar ferramentas por contrato.
 - Registry de ferramentas. Concluido localmente.
 - Primeira ferramenta de leitura segura. Parcial: contrato local de baixo risco.
 - Logs auditaveis. Parcial.
-- Confirmacao para execucao sensivel. Pendente.
+- Confirmacao para execucao sensivel. Parcial: policy MCP criada; UI de confirmacao pendente.
 
 ## P6 - Agentes Especialistas
 

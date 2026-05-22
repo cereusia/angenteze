@@ -61,6 +61,7 @@ Padrao inicial:
 - escrita local: permitida apenas em escopo aprovado;
 - execucao: confirmacao obrigatoria;
 - rede: confirmacao obrigatoria ate haver politica clara.
+- risco `critical`: negado no MVP v0.1.
 
 ## Responsaveis
 

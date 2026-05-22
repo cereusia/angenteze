@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 from .contracts import AgentRequest, AgentResponse, utc_now_iso
@@ -15,16 +16,17 @@ class MemoryStore:
     def initialize(self) -> None:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         schema = schema_path(self.root).read_text(encoding="utf-8")
-        with sqlite3.connect(self.db_path) as connection:
+        with closing(sqlite3.connect(self.db_path)) as connection:
             connection.executescript(schema)
             connection.execute(
                 "insert or ignore into kv_store(key, value, updated_at) values (?, ?, ?)",
                 ("schema_version", "1", utc_now_iso()),
             )
+            connection.commit()
 
     def record_interaction(self, request: AgentRequest, response: AgentResponse) -> None:
         self.initialize()
-        with sqlite3.connect(self.db_path) as connection:
+        with closing(sqlite3.connect(self.db_path)) as connection:
             connection.execute(
                 """
                 insert into interactions(
@@ -45,10 +47,34 @@ class MemoryStore:
                     utc_now_iso(),
                 ),
             )
+            for event in response.mcp_events:
+                connection.execute(
+                    """
+                    insert into mcp_tool_events(
+                        request_id,
+                        tool_name,
+                        risk,
+                        permission,
+                        status,
+                        message,
+                        created_at
+                    ) values (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        request.request_id,
+                        event.tool_name,
+                        event.risk,
+                        event.permission,
+                        event.status,
+                        event.message,
+                        utc_now_iso(),
+                    ),
+                )
+            connection.commit()
 
     def recent_summary(self, limit: int = 3) -> str:
         self.initialize()
-        with sqlite3.connect(self.db_path) as connection:
+        with closing(sqlite3.connect(self.db_path)) as connection:
             rows = connection.execute(
                 """
                 select prompt, response_status

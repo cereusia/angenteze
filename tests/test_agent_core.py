@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "agent-core"))
 
 from agenteze_core.contracts import AgentRequest
 from agenteze_core.memory import MemoryStore
+from agenteze_core.permissions import MCPPermissionPolicy
 from agenteze_core.runtime import AgentRuntime
 
 
@@ -28,6 +29,7 @@ class AgentCoreTests(unittest.TestCase):
             self.assertEqual(response.status, "ok")
             self.assertIn("backend local", response.message)
             self.assertGreaterEqual(len(response.mcp_events), 1)
+            self.assertEqual(response.mcp_events[0].permission, "allow")
             self.assertIn("status do MVP", store.recent_summary())
 
     def test_cli_status_outputs_json(self) -> None:
@@ -54,6 +56,28 @@ class AgentCoreTests(unittest.TestCase):
         self.assertEqual(payload["status"], "ready")
         self.assertEqual(payload["agent"], "Agente Ze")
         self.assertGreaterEqual(payload["mcp"]["tool_count"], 1)
+        self.assertEqual(payload["mcp"]["tools"][0]["effect"], "allow")
+
+    def test_mcp_permission_policy_gates_risk_levels(self) -> None:
+        policy = MCPPermissionPolicy()
+
+        low = policy.evaluate(
+            {"name": "safe.read", "risk": "low", "requires_confirmation": False}
+        )
+        medium = policy.evaluate(
+            {"name": "files.write", "risk": "medium", "requires_confirmation": False}
+        )
+        critical = policy.evaluate(
+            {"name": "system.delete", "risk": "critical", "requires_confirmation": True}
+        )
+        invalid = policy.evaluate(
+            {"name": "bad.tool", "risk": "unknown", "requires_confirmation": False}
+        )
+
+        self.assertEqual(low.effect, "allow")
+        self.assertEqual(medium.effect, "confirmation_required")
+        self.assertEqual(critical.effect, "deny")
+        self.assertEqual(invalid.effect, "deny")
 
 
 if __name__ == "__main__":

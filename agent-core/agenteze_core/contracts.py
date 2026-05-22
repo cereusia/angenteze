@@ -49,13 +49,19 @@ class MCPEvent:
     status: str
     risk: str
     message: str
+    permission: str
+    reason: str
+    requires_confirmation: bool
 
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> dict[str, object]:
         return {
             "tool_name": self.tool_name,
             "status": self.status,
             "risk": self.risk,
             "message": self.message,
+            "permission": self.permission,
+            "reason": self.reason,
+            "requires_confirmation": self.requires_confirmation,
         }
 
 

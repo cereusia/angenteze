@@ -71,6 +71,14 @@ Cada ferramenta deve declarar:
 - politica de log;
 - erros esperados.
 
+Modelo inicial:
+
+- `low`: permitido quando `requires_confirmation` for `false`.
+- `medium`: pendente de confirmacao.
+- `high`: pendente de confirmacao.
+- `critical`: negado no MVP v0.1.
+- risco invalido, ferramenta sem nome ou ferramenta desabilitada: negado.
+
 ## Auditoria
 
 Registrar, no minimo:
