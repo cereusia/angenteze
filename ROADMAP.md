@@ -7,11 +7,11 @@ Objetivo: preparar o projeto antes de codigo.
 - Criar `AGENTS.md` raiz. Concluido localmente.
 - Criar specs iniciais. Concluido localmente.
 - Criar `CONTRIBUTING.md`. Concluido localmente.
-- Confirmar nome do repositorio remoto. Pendente.
+- Confirmar nome do repositorio remoto. Concluido: `cereusia/angenteze`.
 - Inicializar Git local. Concluido localmente.
-- Conectar remoto. Pendente.
+- Conectar remoto. Concluido.
 - Adicionar `LICENSE` com GNU AGPL v3. Concluido localmente.
-- Normalizar `README.md`. Concluido localmente.
+- Normalizar `README.md`. Concluido e publicado.
 
 ## P1 - Fundacao do Repositorio
 
@@ -76,12 +76,14 @@ Objetivo: organizar especialistas sem autonomia excessiva.
 
 Objetivo: preparar distribuicao inicial.
 
-- README completo.
-- Licenca AGPL v3.
-- CI com testes reais.
-- Guia de instalacao local.
-- Politica de seguranca.
-- Release notes.
+- README completo. Concluido.
+- Licenca AGPL v3. Concluido.
+- CI com testes reais. Concluido inicial.
+- Guia de instalacao local. Concluido inicial.
+- Politica de seguranca. Concluido inicial.
+- Release notes. Concluido para `v0.1.0-alpha.1`.
+- Clone limpo de release. Pendente.
+- Tag `v0.1.0-alpha.1`. Pendente.
 
 ## Criterio de Avanco
 

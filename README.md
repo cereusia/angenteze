@@ -107,6 +107,8 @@ O prompt do agente aceita comandos slash reimplementados no `agent-core`:
 - `CONTRIBUTING.md`: guia de contribuição.
 - `assets/character/agente-ze/README.md`: guia dos assets do personagem.
 - `docs/character/`: especificação visual e contratos do personagem.
+- `docs/release/MVP_V0_1_CHECKLIST.md`: checklist da release alpha.
+- `docs/security/MACOS_PERMISSIONS.md`: permissões macOS atuais e futuras.
 - `specs/VISION.md`: visão do produto.
 - `specs/ARCHITECTURE.md`: arquitetura e contratos.
 - `specs/MCP.md`: diretrizes MCP.

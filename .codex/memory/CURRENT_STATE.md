@@ -1,6 +1,6 @@
 # Current State
 
-Data: 2026-05-22
+Data: 2026-05-23
 
 ## Estado Atual
 
@@ -15,9 +15,11 @@ Data: 2026-05-22
 - Comandos locais: `/help`, `/status`, `/doctor`, `/git`, `/memory` e `/mcp` implementados no `agent-core`.
 - Memoria SQLite real: schema inicial em `memory/schema.sql`, runtime em `.ze/agenteze.sqlite3`.
 - Personagem 3D: especificacao, blueprint Blender, referencias, contrato de interacao, mapa de emocoes/animacoes e manifest JSON criados em `docs/character/` e `assets/character/agente-ze/`.
-- Git local: inicializado na branch `main`.
-- Commit inicial local: criado com a mensagem `docs: bootstrap Agente Ze project`.
-- Remoto: ainda nao configurado.
+- Git local: branch `main`, rastreando `origin/main`.
+- Remoto: `git@github.com:cereusia/angenteze.git`.
+- Publicacao inicial: realizada no GitHub em `origin/main`.
+- Ultimo marco publicado antes da release: README publico com logo/personagem e assets visuais versionados.
+- Release alvo atual: `v0.1.0-alpha.1`, pendente de clone limpo e tag.
 
 ## Documentos Criados
 
@@ -58,13 +60,16 @@ Data: 2026-05-22
 - `assets/character/agente-ze/agente-ze.character.json`
 - `assets/character/agente-ze/blender/BLENDER_MODEL_BLUEPRINT.md`
 - `assets/character/agente-ze/references/`
+- `docs/release/MVP_V0_1_CHECKLIST.md`
+- `docs/release/MVP_V0_1_RELEASE_NOTES.md`
+- `docs/security/MACOS_PERMISSIONS.md`
 
 ## Riscos Abertos
 
-- Confirmar nome definitivo do remoto: `angenteze` ou `agenteze`.
 - Definir empacotamento final do Python junto ao app macOS.
 - Expandir comandos locais seguros e contexto Git/memoria.
 - Implementar execucao real de ferramentas MCP atras da confirmacao.
 - Definir retencao/exclusao de memoria.
 - Evoluir logs auditaveis.
 - Iniciar modelagem Blender a partir do board visual e do blueprint.
+- Confirmar estrategia de release GitHub depois da tag alpha inicial.
