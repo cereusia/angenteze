@@ -19,7 +19,7 @@ Data: 2026-05-23
 - Remoto: `git@github.com:cereusia/angenteze.git`.
 - Publicacao inicial: realizada no GitHub em `origin/main`.
 - Ultimo marco publicado antes da release: README publico com logo/personagem e assets visuais versionados.
-- Release alvo atual: `v0.1.0-alpha.1`, pendente de clone limpo e tag.
+- Release atual: `v0.1.0-alpha.1`, validada por clone limpo e publicada como tag alpha.
 
 ## Documentos Criados
 
@@ -72,4 +72,4 @@ Data: 2026-05-23
 - Definir retencao/exclusao de memoria.
 - Evoluir logs auditaveis.
 - Iniciar modelagem Blender a partir do board visual e do blueprint.
-- Confirmar estrategia de release GitHub depois da tag alpha inicial.
+- Confirmar estrategia de release GitHub com pagina de release, binario assinado e notas publicas quando houver empacotamento.

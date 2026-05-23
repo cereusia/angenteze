@@ -82,8 +82,8 @@ Objetivo: preparar distribuicao inicial.
 - Guia de instalacao local. Concluido inicial.
 - Politica de seguranca. Concluido inicial.
 - Release notes. Concluido para `v0.1.0-alpha.1`.
-- Clone limpo de release. Pendente.
-- Tag `v0.1.0-alpha.1`. Pendente.
+- Clone limpo de release. Concluido.
+- Tag `v0.1.0-alpha.1`. Concluido.
 
 ## Criterio de Avanco
 

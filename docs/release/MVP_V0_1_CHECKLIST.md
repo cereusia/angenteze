@@ -39,15 +39,15 @@ Data: 2026-05-23
 
 | Gate | Status | Evidencia |
 | --- | --- | --- |
-| Worktree local limpo antes da release | Pendente | `git status --short --branch` |
-| Testes Python locais | Pendente | `./scripts/test-python.sh` |
-| Build macOS local | Pendente | `./scripts/build-macos.sh` |
-| Clone limpo do GitHub | Pendente | clone temporario de `origin/main` |
-| Testes Python em clone limpo | Pendente | `./scripts/test-python.sh` |
-| Build macOS em clone limpo | Pendente | `./scripts/build-macos.sh` |
+| Worktree local limpo antes da release | Concluido | `git status --short --branch` |
+| Testes Python locais | Concluido | 8 testes passando |
+| Build macOS local | Concluido | `Build complete` |
+| Clone limpo do GitHub | Concluido | clone temporario de `origin/main` |
+| Testes Python em clone limpo | Concluido | 8 testes passando |
+| Build macOS em clone limpo | Concluido | `Build complete` |
 | Documentacao de permissao macOS | Concluido | `docs/security/MACOS_PERMISSIONS.md` |
 | Release notes | Concluido | `docs/release/MVP_V0_1_RELEASE_NOTES.md` |
-| Tag `v0.1.0-alpha.1` | Pendente | `git tag` e `git push origin v0.1.0-alpha.1` |
+| Tag `v0.1.0-alpha.1` | Concluido | `git tag` e `git push origin v0.1.0-alpha.1` |
 
 ## Validacao Local
 
@@ -68,10 +68,17 @@ cd agenteze-release-check
 
 ## Criterio de Aceite
 
-A release `v0.1.0-alpha.1` so pode ser publicada quando:
+A release `v0.1.0-alpha.1` foi considerada pronta quando:
 
 - os checks locais passarem;
 - o clone limpo do GitHub passar;
 - o README apontar para assets versionados;
 - a memoria local refletir o estado publicado;
 - a tag apontar para um commit ja enviado ao remoto.
+
+## Resultado
+
+- Status: release alpha pronta para tag.
+- Checks locais: aprovados.
+- Clone limpo: aprovado.
+- Proximo passo depois da tag: iniciar a proxima frente tecnica sem misturar com o fechamento da release.
