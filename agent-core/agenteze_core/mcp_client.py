@@ -1,12 +1,22 @@
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from .contracts import MCPEvent
+from .context import ProjectContextProvider
 from .paths import mcp_registry_path, project_root
 from .permissions import MCPPermissionPolicy
+
+
+@dataclass(frozen=True)
+class MCPToolResult:
+    tool_name: str
+    status: str
+    message: str
+    output: dict[str, Any]
 
 
 class MCPClient:
@@ -63,6 +73,27 @@ class MCPClient:
                 for tool in tools
             ],
         }
+
+    def execute_allowed_tools(self, events: list[MCPEvent]) -> list[MCPToolResult]:
+        results: list[MCPToolResult] = []
+        executable = {
+            event.tool_name
+            for event in events
+            if event.permission in {"allow", "confirmed"}
+        }
+
+        if "agenteze.workspace.context_read" in executable:
+            summary = ProjectContextProvider(root=self.root).project_summary()
+            results.append(
+                MCPToolResult(
+                    tool_name="agenteze.workspace.context_read",
+                    status="ok",
+                    message="Contexto local lido em modo somente leitura.",
+                    output={"summary": summary},
+                )
+            )
+
+        return results
 
     def _is_active_for_prompt(self, tool: dict[str, Any], prompt: str) -> bool:
         activation = tool.get("activation")

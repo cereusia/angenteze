@@ -12,9 +12,9 @@ struct BackendClient {
     private func run(prompt: String, confirmedTools: [String]) throws -> AgentResponse {
         let corePath = repositoryRoot.appendingPathComponent("agent-core")
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        var arguments = [
-            "python3",
+        let pythonExecutable = resolvePythonExecutable()
+        process.executableURL = pythonExecutable.executableURL
+        var arguments = pythonExecutable.prefixArguments + [
             "-m",
             "agenteze_core",
             "run",
@@ -60,6 +60,35 @@ struct BackendClient {
             throw BackendClientError.invalidJSON(stdout)
         }
     }
+
+    private func resolvePythonExecutable() -> PythonExecutable {
+        let fileManager = FileManager.default
+        let environment = ProcessInfo.processInfo.environment
+
+        if let override = environment["AGENTEZE_PYTHON_EXECUTABLE"],
+           fileManager.isExecutableFile(atPath: override) {
+            return PythonExecutable(
+                executableURL: URL(fileURLWithPath: override),
+                prefixArguments: []
+            )
+        }
+
+        let embedded = repositoryRoot
+            .appendingPathComponent("apps/macos/Resources/python/.venv/bin/python3")
+        if fileManager.isExecutableFile(atPath: embedded.path) {
+            return PythonExecutable(executableURL: embedded, prefixArguments: [])
+        }
+
+        return PythonExecutable(
+            executableURL: URL(fileURLWithPath: "/usr/bin/env"),
+            prefixArguments: ["python3"]
+        )
+    }
+}
+
+private struct PythonExecutable {
+    let executableURL: URL
+    let prefixArguments: [String]
 }
 
 enum BackendClientError: LocalizedError {

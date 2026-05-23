@@ -81,6 +81,12 @@ Execute o backend local:
 ./scripts/run-agent-core.sh run --prompt "status"
 ```
 
+Prepare o venv Python embutido para o app macOS:
+
+```bash
+./scripts/bootstrap-embedded-venv.sh
+```
+
 Execute o app macOS:
 
 ```bash
@@ -121,6 +127,7 @@ O prompt do agente aceita comandos slash reimplementados no `agent-core`:
 O Agente Zé deve permanecer local-first por padrão:
 
 - não armazena segredos no repositório;
+- mantém runtime, logs e SQLite em `.ze/` fora do Git;
 - trata permissões MCP como contrato explícito;
 - exige confirmação para ações sensíveis;
 - registra decisões técnicas relevantes como ADR;

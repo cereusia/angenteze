@@ -17,6 +17,7 @@ Backend local do Agente Ze.
 - Expor respostas JSON estaveis para o app.
 - Carregar o registry MCP local.
 - Resumir contexto local seguro para continuidade.
+- Registrar auditoria local em `.ze/logs/audit.jsonl`.
 - Manter acoes sensiveis fora do v0.1.
 
 ## Fora do v0.1

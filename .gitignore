@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .venv/
+*.egg-info/
 
 # macOS
 .DS_Store
@@ -20,8 +21,12 @@ logs/
 # Runtime
 .ze/cache/
 .ze/logs/
+.ze/logs/*.jsonl
 .ze/*.sqlite3
 dist/
+
+# Embedded local Python runtime
+apps/macos/Resources/python/.venv/
 
 # SQLite
 *.db

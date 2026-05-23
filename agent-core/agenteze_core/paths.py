@@ -28,6 +28,10 @@ def default_database_path(root: Path | None = None) -> Path:
     return runtime_dir(root) / "agenteze.sqlite3"
 
 
+def audit_log_path(root: Path | None = None) -> Path:
+    return runtime_dir(root) / "logs" / "audit.jsonl"
+
+
 def schema_path(root: Path | None = None) -> Path:
     return (root or project_root()) / "memory" / "schema.sql"
 

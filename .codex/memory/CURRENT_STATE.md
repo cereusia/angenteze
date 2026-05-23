@@ -22,6 +22,9 @@ Data: 2026-05-23
 - Release atual: `v0.1.0-alpha.1`, validada por clone limpo e publicada como tag alpha.
 - GitHub Release: pagina publica criada como prerelease em `https://github.com/cereusia/angenteze/releases/tag/v0.1.0-alpha.1`.
 - GitHub CLI: autenticado localmente como `cereusia` com escopos `repo` e `workflow`.
+- Empacotamento Python: decisao proposta por venv embutido em `apps/macos/Resources/python/.venv`.
+- Auditoria local: JSONL em `.ze/logs/audit.jsonl`, fora do Git.
+- MCP real: primeira ferramenta de leitura segura `agenteze.workspace.context_read`.
 
 ## Documentos Criados
 
@@ -52,6 +55,10 @@ Data: 2026-05-23
 - `docs/adr/0003-mcp-permission-model.md`
 - `docs/adr/0004-mcp-confirmation-ui.md`
 - `docs/adr/0005-clean-room-reference-boundary.md`
+- `docs/adr/0006-embedded-python-venv.md`
+- `docs/adr/0007-sqlite-memory-retention.md`
+- `docs/adr/0008-local-audit-log.md`
+- `docs/adr/0009-readonly-workspace-context-mcp-tool.md`
 - `docs/research/claude-code-reference-analysis.md`
 - `docs/character/agente-ze-character-spec.md`
 - `docs/character/agente-ze-emotion-system.md`
@@ -68,10 +75,8 @@ Data: 2026-05-23
 
 ## Riscos Abertos
 
-- Definir empacotamento final do Python junto ao app macOS.
-- Expandir comandos locais seguros e contexto Git/memoria.
-- Implementar execucao real de ferramentas MCP atras da confirmacao.
-- Definir retencao/exclusao de memoria.
-- Evoluir logs auditaveis.
+- Consolidar empacotamento assinado/notarizado com venv embutido.
+- Implementar limpeza/retencao operacional de memoria e logs.
+- Implementar execucao real de ferramentas MCP de escrita atras da confirmacao.
 - Iniciar modelagem Blender a partir do board visual e do blueprint.
 - Confirmar estrategia de release GitHub com binario assinado e notas publicas quando houver empacotamento.

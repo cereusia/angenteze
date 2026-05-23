@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "agent-core"))
 
+from agenteze_core.audit import AuditLogger
 from agenteze_core.contracts import AgentRequest
 from agenteze_core.memory import MemoryStore
 from agenteze_core.permissions import MCPPermissionPolicy
@@ -84,6 +85,30 @@ class AgentCoreTests(unittest.TestCase):
 
             self.assertEqual(response.status, "ok")
             self.assertIn("Comando desconhecido", response.message)
+
+    def test_runtime_executes_readonly_context_tool_and_writes_audit_log(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            store = MemoryStore(db_path=temp_path / "memory.sqlite3", root=ROOT)
+            audit = AuditLogger(log_path=temp_path / "audit.jsonl", root=ROOT)
+            runtime = AgentRuntime(memory_store=store, audit_logger=audit)
+
+            response = runtime.handle(AgentRequest.from_prompt("contexto do projeto"))
+
+            self.assertEqual(response.status, "ok")
+            self.assertIn("Ferramentas MCP executadas", response.message)
+            self.assertIn("Contexto local do Agente Ze", response.message)
+            permissions = {
+                event.tool_name: event.permission
+                for event in response.mcp_events
+            }
+            self.assertEqual(permissions["agenteze.workspace.context_read"], "allow")
+
+            audit_lines = (temp_path / "audit.jsonl").read_text(encoding="utf-8")
+            self.assertIn("mcp.executed", audit_lines)
+            self.assertIn("agenteze.workspace.context_read", audit_lines)
+            self.assertIn("prompt_length", audit_lines)
+            self.assertNotIn("contexto do projeto", audit_lines)
 
     def test_runtime_accepts_confirmed_medium_tool(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

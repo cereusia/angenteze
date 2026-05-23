@@ -32,6 +32,7 @@ Objetivo: criar o shell SwiftUI.
 - Hotkey global. Concluido localmente.
 - Estado basico de conexao com backend local. Concluido localmente.
 - Configuracao local minima. Parcial.
+- Preferencia por venv Python embutido. Parcial.
 
 ## P3 - Agent Core Minimo
 
@@ -60,8 +61,8 @@ Objetivo: conectar ferramentas por contrato.
 
 - Cliente MCP. Concluido como contrato local.
 - Registry de ferramentas. Concluido localmente.
-- Primeira ferramenta de leitura segura. Parcial: contrato local de baixo risco.
-- Logs auditaveis. Parcial.
+- Primeira ferramenta de leitura segura. Concluido: `agenteze.workspace.context_read`.
+- Logs auditaveis. Parcial: JSONL local em `.ze/logs/`.
 - Confirmacao para execucao sensivel. Parcial: policy e UI de confirmacao criadas; execucao real pendente.
 
 ## P6 - Agentes Especialistas

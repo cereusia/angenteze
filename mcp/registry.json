@@ -40,6 +40,49 @@
       }
     },
     {
+      "name": "agenteze.workspace.context_read",
+      "description": "Ferramenta MCP real de baixo risco para ler um resumo seguro do workspace local.",
+      "category": "read",
+      "risk": "low",
+      "requires_confirmation": false,
+      "enabled": true,
+      "activation": {
+        "prompt_contains": [
+          "contexto do projeto",
+          "contexto do workspace",
+          "resumo do projeto",
+          "estado do projeto"
+        ]
+      },
+      "scope": {
+        "workspace_bound": true,
+        "network": false,
+        "filesystem_write": false,
+        "process_execution": false
+      },
+      "audit": {
+        "input": "summary",
+        "output": "summary",
+        "store_events": true
+      },
+      "input_schema": {
+        "type": "object",
+        "required": [],
+        "properties": {}
+      },
+      "output_schema": {
+        "type": "object",
+        "required": [
+          "summary"
+        ],
+        "properties": {
+          "summary": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
       "name": "agenteze.memory.capture_note",
       "description": "Contrato futuro para registrar uma nota na memoria local quando o usuario pedir explicitamente.",
       "category": "write",
