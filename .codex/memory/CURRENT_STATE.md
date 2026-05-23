@@ -12,7 +12,7 @@ Data: 2026-05-22
 - Permissao MCP: policy local inicial no `agent-core`, com `low` permitido, `medium`/`high` pendentes de confirmacao e `critical` negado.
 - Confirmacao MCP: UI no prompt macOS para confirmar/negar ferramentas pendentes; confirmacao reenvia o prompt com `--confirm-tool`, sem execucao real.
 - Referencia `claude-code`: analisada em modo clean-room; codigo nao deve ser copiado nem versionado.
-- Comandos locais: `/help`, `/status`, `/memory` e `/mcp` implementados no `agent-core`.
+- Comandos locais: `/help`, `/status`, `/doctor`, `/memory` e `/mcp` implementados no `agent-core`.
 - Memoria SQLite real: schema inicial em `memory/schema.sql`, runtime em `.ze/agenteze.sqlite3`.
 - Personagem 3D: especificacao, blueprint Blender, referencias, contrato de interacao, mapa de emocoes/animacoes e manifest JSON criados em `docs/character/` e `assets/character/agente-ze/`.
 - Git local: inicializado na branch `main`.

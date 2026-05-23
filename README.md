@@ -85,6 +85,7 @@ O prompt aceita comandos slash reimplementados no `agent-core`:
 
 - `/help`
 - `/status`
+- `/doctor`
 - `/memory`
 - `/mcp`
 

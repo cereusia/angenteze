@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from .context import ProjectContextProvider
+from .doctor import Doctor
 from .mcp_client import MCPClient
 from .memory import MemoryStore
 
@@ -30,6 +31,7 @@ class CommandRegistry:
         self._handlers: dict[str, CommandHandler] = {
             "/help": self._help,
             "/status": self._status,
+            "/doctor": self._doctor,
             "/memory": self._memory,
             "/mcp": self._mcp,
         }
@@ -74,6 +76,12 @@ class CommandRegistry:
             message=self.memory_store.recent_summary(limit=5),
         )
 
+    def _doctor(self, _args: str) -> CommandResult:
+        return CommandResult(
+            name="/doctor",
+            message=Doctor().summary(),
+        )
+
     def _mcp(self, _args: str) -> CommandResult:
         tools = self.mcp_client.health()["tools"]
         lines = [
@@ -90,6 +98,7 @@ class CommandRegistry:
             "Comandos disponiveis:\n"
             "- /help: lista comandos locais\n"
             "- /status: mostra contexto local\n"
+            "- /doctor: diagnostica ambiente local\n"
             "- /memory: mostra resumo da memoria local\n"
             "- /mcp: mostra contratos MCP registrados"
         )
