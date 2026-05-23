@@ -1,0 +1,385 @@
+{
+  "metadata": {
+    "id": "agente-ze",
+    "name": "Agente Ze",
+    "origin": "CereusIA",
+    "concept": "Da Caatinga para o mundo",
+    "role": "Assistente global, operador de IA, coordenador de agentes e interface emocional do aplicativo",
+    "license": "GNU AGPL v3",
+    "referenceImages": [
+      "references/agente-ze-visual-board.png",
+      "references/agente-ze-turnaround-poses.png",
+      "references/agente-ze-open-source-board.png"
+    ],
+    "typography": {
+      "primary": "Inter"
+    }
+  },
+  "version": "0.1.0",
+  "colors": {
+    "cereusiaGreen": "#22C55E",
+    "cactusGreen": "#2F7D46",
+    "deepGreen": "#174A2A",
+    "emissiveGreen": "#65F2A3",
+    "digitalCyan": "#47D7FF",
+    "technicalBlue": "#2563EB",
+    "officialBlack": "#0B0F14",
+    "faceBlack": "#090D10",
+    "visorGraphite": "#1A2228",
+    "officialSand": "#F2E8CF",
+    "fieldSand": "#C8A66A",
+    "lightBeige": "#E6D0A2",
+    "officialBrown": "#8B5E34",
+    "earthBrown": "#7A4E2D",
+    "scarfDark": "#5A2E24",
+    "techMetal": "#3A3F42",
+    "warningYellow": "#FFD166",
+    "softErrorRed": "#FF5A5F",
+    "offlineBlueGray": "#7B8A90"
+  },
+  "materials": {
+    "MAT_AZE_CactusShell": {
+      "baseColor": "#2F7D46",
+      "roughness": 0.55,
+      "metallic": 0.0
+    },
+    "MAT_AZE_CactusGrooves": {
+      "baseColor": "#174A2A",
+      "roughness": 0.65,
+      "metallic": 0.0
+    },
+    "MAT_AZE_SoftSpines": {
+      "baseColor": "#C8A66A",
+      "roughness": 0.75,
+      "metallic": 0.0
+    },
+    "MAT_AZE_FaceGlass": {
+      "baseColor": "#090D10",
+      "roughness": 0.18,
+      "metallic": 0.0,
+      "clearcoat": 0.85
+    },
+    "MAT_AZE_EyeGlow": {
+      "baseColor": "#47D7FF",
+      "emissiveColor": "#65F2A3",
+      "emissiveIntensity": 0.75
+    },
+    "MAT_AZE_MouthGlow": {
+      "baseColor": "#65F2A3",
+      "emissiveColor": "#65F2A3",
+      "emissiveIntensity": 0.45
+    },
+    "MAT_AZE_FieldCloth": {
+      "baseColor": "#C8A66A",
+      "roughness": 0.82,
+      "metallic": 0.0
+    },
+    "MAT_AZE_FieldHat": {
+      "baseColor": "#F2E8CF",
+      "roughness": 0.78,
+      "metallic": 0.0
+    },
+    "MAT_AZE_Scarf": {
+      "baseColor": "#5A2E24",
+      "roughness": 0.88,
+      "metallic": 0.0
+    },
+    "MAT_AZE_LeatherUtility": {
+      "baseColor": "#8B5E34",
+      "roughness": 0.62,
+      "metallic": 0.0
+    },
+    "MAT_AZE_TechMetal": {
+      "baseColor": "#3A3F42",
+      "roughness": 0.48,
+      "metallic": 0.45
+    },
+    "MAT_AZE_ChestSymbolGlow": {
+      "baseColor": "#22C55E",
+      "emissiveColor": "#65F2A3",
+      "emissiveIntensity": 0.85
+    }
+  },
+  "states": {
+    "idle": {
+      "eyeExpression": "round_soft",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.45,
+      "posture": "relaxed",
+      "defaultAnimation": "idle_breathing"
+    },
+    "listening": {
+      "eyeExpression": "round_large",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.72,
+      "posture": "lean_forward",
+      "defaultAnimation": "listen_pulse"
+    },
+    "thinking": {
+      "eyeExpression": "soft_squint",
+      "mouthExpression": "small_dots",
+      "visorGlow": 0.58,
+      "posture": "hand_to_chin",
+      "defaultAnimation": "thinking_loop"
+    },
+    "speaking": {
+      "eyeExpression": "round_active",
+      "mouthExpression": "digital_bars",
+      "visorGlow": 0.66,
+      "posture": "front_confident",
+      "defaultAnimation": "typing_response"
+    },
+    "executing": {
+      "eyeExpression": "focused",
+      "mouthExpression": "firm_line",
+      "visorGlow": 0.8,
+      "posture": "stable_operator",
+      "defaultAnimation": "tool_execution"
+    },
+    "success": {
+      "eyeExpression": "happy_arcs",
+      "mouthExpression": "small_smile",
+      "visorGlow": 0.9,
+      "posture": "open_chest",
+      "defaultAnimation": "success_bounce"
+    },
+    "warning": {
+      "eyeExpression": "wide_attention",
+      "mouthExpression": "small_line",
+      "visorGlow": 0.68,
+      "posture": "alert",
+      "defaultAnimation": "warning_attention"
+    },
+    "error": {
+      "eyeExpression": "reduced_soft",
+      "mouthExpression": "small_down_curve",
+      "visorGlow": 0.42,
+      "posture": "lowered_shoulders",
+      "defaultAnimation": "error_shake"
+    },
+    "confused": {
+      "eyeExpression": "asymmetric",
+      "mouthExpression": "tilted_small",
+      "visorGlow": 0.5,
+      "posture": "head_tilt",
+      "defaultAnimation": "double_click_react"
+    },
+    "celebrating": {
+      "eyeExpression": "happy_bright",
+      "mouthExpression": "wide_smile",
+      "visorGlow": 1.0,
+      "posture": "arms_open",
+      "defaultAnimation": "success_bounce"
+    },
+    "sleeping": {
+      "eyeExpression": "closed",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.12,
+      "posture": "resting",
+      "defaultAnimation": "sleep_mode"
+    },
+    "updating": {
+      "eyeExpression": "scan_round",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.72,
+      "posture": "backpack_active",
+      "defaultAnimation": "notification_ping"
+    },
+    "connecting": {
+      "eyeExpression": "alternating_cyan",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.62,
+      "posture": "ready",
+      "defaultAnimation": "wake_up"
+    },
+    "offline": {
+      "eyeExpression": "dim_round",
+      "mouthExpression": "small_neutral",
+      "visorGlow": 0.15,
+      "posture": "low_energy",
+      "defaultAnimation": "idle_breathing"
+    }
+  },
+  "animations": {
+    "idle_breathing": {
+      "durationMs": 2800,
+      "loop": true,
+      "intensity": "low",
+      "priority": 1,
+      "properties": ["torso_scale", "shoulders", "visor_glow"]
+    },
+    "blink": {
+      "durationMs": 120,
+      "loop": false,
+      "intensity": "low",
+      "priority": 1,
+      "properties": ["eye_scale_y", "eye_emission"]
+    },
+    "look_at_cursor": {
+      "durationMs": 0,
+      "loop": true,
+      "intensity": "medium",
+      "priority": 2,
+      "properties": ["eye_target", "head_yaw", "head_pitch"]
+    },
+    "listen_pulse": {
+      "durationMs": 1200,
+      "loop": true,
+      "intensity": "medium",
+      "priority": 3,
+      "properties": ["eye_glow", "visor_glow", "body_lean"]
+    },
+    "thinking_loop": {
+      "durationMs": 1800,
+      "loop": true,
+      "intensity": "medium",
+      "priority": 3,
+      "properties": ["eyes", "head_tilt", "hand_pose", "chest_symbol_glow"]
+    },
+    "typing_response": {
+      "durationMs": 800,
+      "loop": true,
+      "intensity": "medium",
+      "priority": 3,
+      "properties": ["mouth_bars", "eye_glow", "visor_glow"]
+    },
+    "tool_execution": {
+      "durationMs": 1400,
+      "loop": true,
+      "intensity": "high",
+      "priority": 5,
+      "properties": ["visor_scan", "backpack_glow", "chest_symbol_glow", "posture"]
+    },
+    "success_bounce": {
+      "durationMs": 700,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 5,
+      "properties": ["root_y", "arms", "eyes", "green_glow"]
+    },
+    "error_shake": {
+      "durationMs": 450,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 5,
+      "properties": ["root_x", "eyes", "red_glow"]
+    },
+    "warning_attention": {
+      "durationMs": 650,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 5,
+      "properties": ["head", "eyes", "yellow_glow"]
+    },
+    "sleep_mode": {
+      "durationMs": 1200,
+      "loop": false,
+      "intensity": "low",
+      "priority": 3,
+      "properties": ["eyes_closed", "emission_down", "body_settle"]
+    },
+    "wake_up": {
+      "durationMs": 900,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 4,
+      "properties": ["eyes_open", "posture_up", "glow_return"]
+    },
+    "open_panel": {
+      "durationMs": 350,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 4,
+      "properties": ["root_scale", "opacity", "posture"]
+    },
+    "close_panel": {
+      "durationMs": 280,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 4,
+      "properties": ["root_scale", "opacity", "eyes"]
+    },
+    "double_click_react": {
+      "durationMs": 550,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 3,
+      "properties": ["head_bob", "eyes", "small_bounce"]
+    },
+    "drag_follow": {
+      "durationMs": 0,
+      "loop": true,
+      "intensity": "medium",
+      "priority": 2,
+      "properties": ["root_follow", "eyes", "body_inertia"]
+    },
+    "notification_ping": {
+      "durationMs": 800,
+      "loop": false,
+      "intensity": "medium",
+      "priority": 4,
+      "properties": ["chest_symbol_glow", "eyes", "small_bounce"]
+    }
+  },
+  "events": {
+    "USER_OPENED_APP": ["setEmotion:connecting", "playAnimation:wake_up"],
+    "USER_CLICKED_MENU_BAR": ["openFloatingPanel", "setEmotion:idle"],
+    "USER_DOUBLE_CLICKED_PET": ["playAnimation:double_click_react", "setEmotion:listening"],
+    "USER_STARTED_TYPING": ["setEmotion:listening", "playAnimation:listen_pulse"],
+    "USER_SENT_PROMPT": ["setEmotion:thinking", "playAnimation:thinking_loop"],
+    "AGENT_STARTED_THINKING": ["setEmotion:thinking"],
+    "AGENT_STARTED_TOOL_USE": ["setEmotion:executing", "playAnimation:tool_execution"],
+    "AGENT_NEEDS_PERMISSION": ["setEmotion:warning", "playAnimation:warning_attention"],
+    "AGENT_COMPLETED_TASK": ["setEmotion:success", "playAnimation:success_bounce"],
+    "AGENT_FAILED_TASK": ["setEmotion:error", "playAnimation:error_shake"],
+    "NETWORK_OFFLINE": ["setEmotion:offline", "setGlowIntensity:0.15"],
+    "MEMORY_UPDATED": ["setEmotion:updating", "reactToNotification:memory"]
+  },
+  "audioCues": {
+    "idle": null,
+    "listen": "soft_ping",
+    "thinking": "soft_tick",
+    "success": "positive_ping",
+    "warning": "attention_soft",
+    "error": "low_soft_tone",
+    "notification": "notification_ping"
+  },
+  "exportTargets": {
+    "sourceBlend": "blender/agente-ze-source.blend",
+    "primaryGlb": "exports/agente-ze-v0.1.glb",
+    "gltf": "exports/agente-ze-v0.1.gltf",
+    "menuBarIcon": "icons/agente-ze-menubar.png",
+    "spriteSheet": "sprites/agente-ze-states.png",
+    "textureMaxRuntime": 1024,
+    "textureMaxSource": 2048
+  },
+  "appIntegration": {
+    "supportedRuntimes": ["SceneKit", "RealityKit", "WebViewThreeJS", "SpriteFallback"],
+    "defaultAttachment": "menu_bar",
+    "floatingPanel": {
+      "enabled": true,
+      "preferredSize": {
+        "width": 220,
+        "height": 260
+      }
+    },
+    "commands": [
+      "setEmotion",
+      "playAnimation",
+      "setEyeExpression",
+      "setMouthExpression",
+      "setGlowIntensity",
+      "setStatusText",
+      "attachToMenuBar",
+      "openFloatingPanel",
+      "closeFloatingPanel",
+      "followCursor",
+      "reactToNotification"
+    ],
+    "fallbackPolicy": {
+      "if3DUnavailable": "use sprites/icons",
+      "ifAnimationMissing": "use idle_breathing",
+      "ifStateUnknown": "use confused"
+    }
+  }
+}
