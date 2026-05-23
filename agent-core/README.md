@@ -6,6 +6,7 @@ Backend local do Agente Ze.
 
 ```bash
 ./scripts/run-agent-core.sh run --prompt "status"
+./scripts/run-agent-core.sh run --prompt "/context"
 ./scripts/run-agent-core.sh status
 ```
 
@@ -15,6 +16,7 @@ Backend local do Agente Ze.
 - Consultar e atualizar memoria local SQLite.
 - Expor respostas JSON estaveis para o app.
 - Carregar o registry MCP local.
+- Resumir contexto local seguro para continuidade.
 - Manter acoes sensiveis fora do v0.1.
 
 ## Fora do v0.1

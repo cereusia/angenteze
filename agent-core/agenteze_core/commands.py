@@ -31,6 +31,7 @@ class CommandRegistry:
         self._handlers: dict[str, CommandHandler] = {
             "/help": self._help,
             "/status": self._status,
+            "/context": self._context,
             "/doctor": self._doctor,
             "/git": self._git,
             "/memory": self._memory,
@@ -77,6 +78,12 @@ class CommandRegistry:
             message=self.memory_store.recent_summary(limit=5),
         )
 
+    def _context(self, _args: str) -> CommandResult:
+        return CommandResult(
+            name="/context",
+            message=self.context_provider.project_summary(),
+        )
+
     def _doctor(self, _args: str) -> CommandResult:
         return CommandResult(
             name="/doctor",
@@ -105,6 +112,7 @@ class CommandRegistry:
             "Comandos disponiveis:\n"
             "- /help: lista comandos locais\n"
             "- /status: mostra contexto local\n"
+            "- /context: resume Git, memoria documental, specs e proximas acoes\n"
             "- /doctor: diagnostica ambiente local\n"
             "- /git: resume estado Git local\n"
             "- /memory: mostra resumo da memoria local\n"

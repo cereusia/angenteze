@@ -84,6 +84,111 @@ class ProjectContextProvider:
             recent_commits=self._git(["log", "--oneline", "--decorate", "-5"]).splitlines(),
         )
 
+    def project_summary(self) -> str:
+        git = self.git_summary()
+        tags = self._git(["tag", "--points-at", "HEAD"]).splitlines()
+        tag_summary = ", ".join(tags) if tags else "nenhuma tag no HEAD"
+        pending = "clean" if git.pending_count == 0 else f"{git.pending_count} item(s)"
+
+        lines = [
+            "Contexto local do Agente Ze",
+            "",
+            "Git",
+            f"- Branch: {git.branch}",
+            f"- Upstream: {git.upstream}",
+            f"- Pendencias: {pending}",
+            f"- Tags no HEAD: {tag_summary}",
+            "",
+            "Modulos principais",
+            *self._path_lines(
+                [
+                    "apps/macos/Package.swift",
+                    "agent-core/agenteze_core",
+                    "memory/schema.sql",
+                    "mcp/registry.json",
+                    "tests/test_agent_core.py",
+                ]
+            ),
+            "",
+            "Memoria documental",
+            *self._path_lines(
+                [
+                    "AGENTS.md",
+                    ".codex/PROJECT_RULES.md",
+                    ".codex/memory/PROJECT_SUMMARY.md",
+                    ".codex/memory/CURRENT_STATE.md",
+                    ".codex/memory/NEXT_ACTIONS.md",
+                ]
+            ),
+            "",
+            "Specs e release",
+            *self._path_lines(
+                [
+                    "specs/VISION.md",
+                    "specs/ARCHITECTURE.md",
+                    "specs/MCP.md",
+                    "specs/SECURITY.md",
+                    "docs/adr",
+                    "docs/release/MVP_V0_1_RELEASE_NOTES.md",
+                ]
+            ),
+        ]
+
+        next_actions = self._section_items(
+            ".codex/memory/NEXT_ACTIONS.md",
+            "Lista Curta",
+            limit=5,
+        )
+        if next_actions:
+            lines.extend(["", "Proximas acoes"])
+            lines.extend(next_actions)
+
+        return "\n".join(lines)
+
+    def _path_lines(self, relative_paths: list[str]) -> list[str]:
+        return [
+            f"- {relative_path}: {self._path_status(relative_path)}"
+            for relative_path in relative_paths
+        ]
+
+    def _path_status(self, relative_path: str) -> str:
+        path = self.root / relative_path
+        if path.is_dir():
+            item_count = len(
+                [item for item in path.iterdir() if not item.name.startswith(".")]
+            )
+            return f"ok ({item_count} item(s))"
+        if path.is_file():
+            return "ok"
+        return "ausente"
+
+    def _section_items(self, relative_path: str, section: str, limit: int) -> list[str]:
+        path = self.root / relative_path
+        if not path.is_file():
+            return []
+
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            return []
+
+        items: list[str] = []
+        in_section = False
+        marker = f"## {section}"
+        for line in lines:
+            stripped = line.strip()
+            if stripped == marker:
+                in_section = True
+                continue
+            if in_section and stripped.startswith("## "):
+                break
+            if in_section and stripped:
+                items.append(stripped)
+            if len(items) >= limit:
+                break
+
+        return items
+
     def _status_summary(self) -> str:
         status = self._git(["status", "--short"])
         if not status:

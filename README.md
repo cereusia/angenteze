@@ -93,6 +93,7 @@ O prompt do agente aceita comandos slash reimplementados no `agent-core`:
 
 - `/help`
 - `/status`
+- `/context`
 - `/doctor`
 - `/git`
 - `/memory`
