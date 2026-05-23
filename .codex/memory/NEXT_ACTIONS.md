@@ -10,7 +10,7 @@ Iniciar a proxima frente tecnica apos a release alpha `v0.1.0-alpha.1`.
 2. Definir ADR de retencao/exclusao da memoria SQLite.
 3. Evoluir logs auditaveis de MCP e ferramentas locais.
 4. Planejar primeira execucao real de ferramenta MCP de baixo risco.
-5. Resolver permissao do GitHub CLI para criar a pagina de release (`gh auth refresh -h github.com -s workflow`).
+5. Planejar empacotamento futuro da GitHub Release com binario assinado/notarizado.
 
 ## Fora da Proxima Etapa
 

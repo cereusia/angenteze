@@ -20,6 +20,8 @@ Data: 2026-05-23
 - Publicacao inicial: realizada no GitHub em `origin/main`.
 - Ultimo marco publicado antes da release: README publico com logo/personagem e assets visuais versionados.
 - Release atual: `v0.1.0-alpha.1`, validada por clone limpo e publicada como tag alpha.
+- GitHub Release: pagina publica criada como prerelease em `https://github.com/cereusia/angenteze/releases/tag/v0.1.0-alpha.1`.
+- GitHub CLI: autenticado localmente como `cereusia` com escopos `repo` e `workflow`.
 
 ## Documentos Criados
 
@@ -72,4 +74,4 @@ Data: 2026-05-23
 - Definir retencao/exclusao de memoria.
 - Evoluir logs auditaveis.
 - Iniciar modelagem Blender a partir do board visual e do blueprint.
-- Confirmar estrategia de release GitHub com pagina de release, binario assinado e notas publicas quando houver empacotamento.
+- Confirmar estrategia de release GitHub com binario assinado e notas publicas quando houver empacotamento.

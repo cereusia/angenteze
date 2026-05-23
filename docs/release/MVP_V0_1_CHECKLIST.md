@@ -48,6 +48,7 @@ Data: 2026-05-23
 | Documentacao de permissao macOS | Concluido | `docs/security/MACOS_PERMISSIONS.md` |
 | Release notes | Concluido | `docs/release/MVP_V0_1_RELEASE_NOTES.md` |
 | Tag `v0.1.0-alpha.1` | Concluido | `git tag` e `git push origin v0.1.0-alpha.1` |
+| Pagina GitHub Release | Concluido | `https://github.com/cereusia/angenteze/releases/tag/v0.1.0-alpha.1` |
 
 ## Validacao Local
 
@@ -81,4 +82,5 @@ A release `v0.1.0-alpha.1` foi considerada pronta quando:
 - Status: release alpha pronta para tag.
 - Checks locais: aprovados.
 - Clone limpo: aprovado.
+- GitHub Release: publicada como prerelease.
 - Proximo passo depois da tag: iniciar a proxima frente tecnica sem misturar com o fechamento da release.
