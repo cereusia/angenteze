@@ -28,6 +28,39 @@ class ProjectContext:
         )
 
 
+@dataclass(frozen=True)
+class GitSummary:
+    branch: str
+    upstream: str
+    remote: str
+    pending_count: int
+    pending_items: list[str]
+    recent_commits: list[str]
+
+    def summary(self) -> str:
+        pending = "clean" if self.pending_count == 0 else f"{self.pending_count} item(s)"
+        lines = [
+            "Resumo Git local",
+            "",
+            f"Branch: {self.branch}",
+            f"Upstream: {self.upstream}",
+            f"Remote: {self.remote}",
+            f"Pendencias: {pending}",
+        ]
+
+        if self.pending_items:
+            lines.append("")
+            lines.append("Arquivos pendentes:")
+            lines.extend(f"- {item}" for item in self.pending_items)
+
+        if self.recent_commits:
+            lines.append("")
+            lines.append("Ultimos commits:")
+            lines.extend(f"- {commit}" for commit in self.recent_commits)
+
+        return "\n".join(lines)
+
+
 class ProjectContextProvider:
     def __init__(self, root: Path | None = None) -> None:
         self.root = root or project_root()
@@ -37,6 +70,18 @@ class ProjectContextProvider:
             root=str(self.root),
             git_branch=self._git(["branch", "--show-current"]) or "unknown",
             git_status=self._status_summary(),
+        )
+
+    def git_summary(self) -> GitSummary:
+        pending_items = self._git(["status", "--short"]).splitlines()
+        return GitSummary(
+            branch=self._git(["branch", "--show-current"]) or "unknown",
+            upstream=self._git(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"])
+            or "nao configurado",
+            remote=self._git(["remote", "-v"]) or "nao configurado",
+            pending_count=len(pending_items),
+            pending_items=pending_items[:12],
+            recent_commits=self._git(["log", "--oneline", "--decorate", "-5"]).splitlines(),
         )
 
     def _status_summary(self) -> str:
@@ -55,8 +100,9 @@ class ProjectContextProvider:
                 check=False,
                 capture_output=True,
                 text=True,
+                timeout=5,
             )
-        except OSError:
+        except (OSError, subprocess.TimeoutExpired):
             return ""
 
         if completed.returncode != 0:

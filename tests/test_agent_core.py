@@ -55,14 +55,18 @@ class AgentCoreTests(unittest.TestCase):
             help_response = runtime.handle(AgentRequest.from_prompt("/help"))
             status_response = runtime.handle(AgentRequest.from_prompt("/status"))
             doctor_response = runtime.handle(AgentRequest.from_prompt("/doctor"))
+            git_response = runtime.handle(AgentRequest.from_prompt("/git"))
             memory_response = runtime.handle(AgentRequest.from_prompt("/memory"))
             mcp_response = runtime.handle(AgentRequest.from_prompt("/mcp"))
 
             self.assertIn("/status", help_response.message)
             self.assertIn("/doctor", help_response.message)
+            self.assertIn("/git", help_response.message)
             self.assertIn("Status local", status_response.message)
             self.assertIn("Doctor local", doctor_response.message)
             self.assertIn("mcp/registry.json", doctor_response.message)
+            self.assertIn("Resumo Git local", git_response.message)
+            self.assertIn("Branch:", git_response.message)
             self.assertIn("Interacoes recentes", memory_response.message)
             self.assertIn("Contratos MCP", mcp_response.message)
 

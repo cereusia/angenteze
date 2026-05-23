@@ -32,6 +32,7 @@ class CommandRegistry:
             "/help": self._help,
             "/status": self._status,
             "/doctor": self._doctor,
+            "/git": self._git,
             "/memory": self._memory,
             "/mcp": self._mcp,
         }
@@ -82,6 +83,12 @@ class CommandRegistry:
             message=Doctor().summary(),
         )
 
+    def _git(self, _args: str) -> CommandResult:
+        return CommandResult(
+            name="/git",
+            message=self.context_provider.git_summary().summary(),
+        )
+
     def _mcp(self, _args: str) -> CommandResult:
         tools = self.mcp_client.health()["tools"]
         lines = [
@@ -99,6 +106,7 @@ class CommandRegistry:
             "- /help: lista comandos locais\n"
             "- /status: mostra contexto local\n"
             "- /doctor: diagnostica ambiente local\n"
+            "- /git: resume estado Git local\n"
             "- /memory: mostra resumo da memoria local\n"
             "- /mcp: mostra contratos MCP registrados"
         )
