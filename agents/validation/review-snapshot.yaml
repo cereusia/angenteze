@@ -1,0 +1,78 @@
+schema_version: 1
+package_version: 0.1.0-draft.8
+state: REVIEW_CANDIDATE
+runtime_enabled: false
+created_on: "2026-08-31"
+base_head: b585829bc30d0255278c95e8273e0fe6ced2dc1d
+
+algorithm:
+  file_digest: SHA-256 over exact file bytes
+  path_order: bytewise ascending repository-relative path
+  aggregate_record: path + NUL + lowercase_file_sha256 + LF
+  aggregate_digest: SHA-256 over concatenated aggregate records
+  self_inclusion: false
+
+file_count: 30
+aggregate_sha256: 832bf019afcc7769158889d138db1eaa1a98c40b6d6dffe572bde677e09b967a
+
+files:
+  - path: AGENTS.md
+    sha256: 09aa09301e61c6f4cfa6c413b781154c9aa1d6b0cb321fd0d898b46cfdcbbfb9
+  - path: agents/README.md
+    sha256: c871fb01ea7848dabe930390f36881e6bd59088c4d62de6096c18aad2e81f308
+  - path: agents/c3po-cepo/manifest.yaml
+    sha256: 3a0cf37ebc912433e82add056a61b3212120258cbb22515d585b2f8d630f2b7a
+  - path: agents/r2d2/blue-team.yaml
+    sha256: 2b9604f6cedbcae12164e6d9fe014a9a1b4528db66994b25107e3a408725ac9a
+  - path: agents/r2d2/manifest.yaml
+    sha256: 96907bffdb0bbe69c2a92540f50c4d4a171b4c13a14c97ab4421e2ead8c4b168
+  - path: agents/r2d2/red-team.yaml
+    sha256: 58ac36d16265369cb1ab6c7f9852fa12635bbca4abc1cac5921570b1946ae790
+  - path: agents/schemas/c3po-integration-validation.schema.json
+    sha256: 78d243328cc4936fa0bc90dec906bf9cb0603fcdc26f0ca5238d20dd8ec3bf0c
+  - path: agents/schemas/incident-response.schema.json
+    sha256: ac0e5997d164f2646fbeb97cc4060704ff568e3c8895defa3b45a747034014a9
+  - path: agents/schemas/r2d2-c3po-cepo-handoff.schema.json
+    sha256: f3a9f07c3d085efd9ef702d4676aa9f717b8ab1a75e83b7ff00b9216080c06c3
+  - path: agents/schemas/r2d2-context-source.schema.json
+    sha256: 7f76ea34175b8bfb90a744d041efd5d4c6ff215b0ec2d6e3c145abadcb6c38c4
+  - path: agents/schemas/r2d2-context-verification-receipt.schema.json
+    sha256: 00c478236fbd61cf5696140e59c8c91febdf6e4d3330d0bf9a39c749f3254df0
+  - path: agents/schemas/r2d2-identity-attestation.schema.json
+    sha256: c4466e90e2b07ce9a503a9a6f8f72c7e5a897020ac0c60c1e7e7619577efca7d
+  - path: agents/schemas/r2d2-state-transition-record.schema.json
+    sha256: 0afcf5226da3407a55e533277af48eda0d6952b3ff07591274231257bbb225f7
+  - path: agents/schemas/r2d2-task-context.schema.json
+    sha256: 597606e2098b17613536cd6158ba09917e2d07c77073042e808678eeca69246d
+  - path: agents/schemas/red-team-engagement.schema.json
+    sha256: c50f52b197a9fd02bebc37474b9a1a232e2d19b5b9f38963de16332bc4d7cbf7
+  - path: agents/validation/SEMANTIC_VALIDATOR.md
+    sha256: 59ff8589d9533f0100b86278584c5c9fb92bf4fb56b3d5929f6adbedad143151
+  - path: agents/validation/c3po-runner-policy.yaml
+    sha256: 26e6515220ec019e303d75b7eb1e4f25c54f3a866a2267f7ad2ba8214867ac8a
+  - path: agents/validation/r2d2-semantic-rules.yaml
+    sha256: aac0c05582d04a80e64fb177cc8dc6c21e68eb42180c4a743ddab1bd630bd4ab
+  - path: agents/validation/semantic-cases.yaml
+    sha256: b57ace26b4b366584fbe7d7e6644e0c2bf0f18a738c5675bcca3e61436f09ed2
+  - path: agents/validation/trusted-verifiers.yaml
+    sha256: a2ef10e30bc2a6fd1a289868db5177370b152411fef7aa3f1c847a69d64bb202
+  - path: docs/adr/0011-r2d2-c3po-cepo-governance.md
+    sha256: c709c5aa7d7f68acbaee51e6965182065103b5220060cfd7b193f755947ee92d
+  - path: docs/security/C3PO_CEPO_SAFE_EXECUTION.md
+    sha256: e218e8def1583af389ed80245c3cd7e8bd52b11b552e2eb91a14cbf81def8bad
+  - path: docs/security/R2D2_CANONICAL_DIGESTS.md
+    sha256: 77b0ddecfff17b722f8d0b7882d0fe55ae61f8f55a9bd910909a9eda4ca5bf72
+  - path: docs/security/R2D2_DOCUMENT_VALIDATION.md
+    sha256: b07d39cc1d86200b773ac49227f0a716b0f5a83d478fe70dfdd8844e30fbddee
+  - path: docs/security/R2D2_INCIDENT_RESPONSE.md
+    sha256: d8df6d8aff1e53e988c9abba8b238fd24f6777a50748e35deeeb5dcf15c88d9f
+  - path: docs/security/R2D2_PERMISSION_MATRIX.md
+    sha256: 4c36a2680f201c59813a5edee1da584941c9983577891733c287289d4858a9b3
+  - path: docs/security/R2D2_RULES_OF_ENGAGEMENT.md
+    sha256: a5dc4e05ae593ad64dd7c68eb381ccb872adf8200e45ab7aad7b7e4bc5f566b6
+  - path: docs/security/R2D2_SECURITY_GOVERNANCE.md
+    sha256: 1d9804cb0023e66b480e6374da044bd5ee0667979a34b5f110035a13b45c384f
+  - path: specs/AGENTS.md
+    sha256: 8960e1bffe0707d3d49fc7073746293acc810158b34969571a784a0dd425fb44
+  - path: specs/SECURITY.md
+    sha256: dd2bcf8835eca96a268b47b5b9f1f137b286201877e0296d81b79d8a46368ff5

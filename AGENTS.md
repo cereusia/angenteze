@@ -68,6 +68,15 @@ Antes de agir, leia nesta ordem:
 - Fábio: backend local Python.
 - Lina: UX e acessibilidade.
 
+## Candidatos Documentais P6
+
+- R2D2: lider tecnico e de ciberseguranca; permanece `SPEC` e desativado.
+- C3PO/CEPO: uma unica identidade para documentacao, versao, lint e integracao
+  serial; permanece `SPEC` e desativada.
+
+Os contratos estao em `agents/` e `docs/security/`. Sua existencia nao autoriza
+multiagente, ferramentas, rede, instalacao, escrita, teste ofensivo ou producao.
+
 ## Estado Inicial
 
 O projeto esta em fase documental. Antes de implementar SwiftUI, Python, SQLite ou MCP real, mantenha as specs atualizadas e registre decisoes relevantes.

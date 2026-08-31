@@ -63,9 +63,17 @@ Padrao inicial:
 - rede: confirmacao obrigatoria ate haver politica clara.
 - risco `critical`: negado no MVP v0.1.
 
+Nenhum perfil de agente, regra de engajamento, incidente, confirmacao ou
+manifesto documental pode sobrepor o registry, a allowlist, o sandbox ou a
+decisao `critical: DENY` do MVP. A politica executavel mais restritiva sempre
+prevalece.
+
 ## Responsaveis
 
-- Cristine: seguranca e abuso.
+- R2D2: coordenacao e execucao tecnica do programa de seguranca, sempre sob
+  perfil, escopo e gate aprovados.
+- Cristine: garantia independente de seguranca, abuso e risco; nao substitui o
+  executor e nao revisa trabalho de sua propria autoria.
 - Doneda: privacidade e retencao.
 - Eliane: validacao e regressao.
 - Tereza: operacao, logs e release.

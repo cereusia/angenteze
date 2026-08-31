@@ -1,0 +1,335 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/c3po-integration-validation.schema.json",
+  "title": "C3PO/CEPO safe integration validation",
+  "$comment": "Structural schema. Lifecycle, digest equality, execution result and path isolation are enforced by agents/validation/r2d2-semantic-rules.yaml.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "validation_id",
+    "state",
+    "handoff_binding",
+    "repository_id",
+    "head_sha",
+    "branch",
+    "worktree_id",
+    "integration_boundary_id",
+    "working_directory",
+    "source_root_realpath",
+    "git_metadata_realpath",
+    "output_root_realpath",
+    "output_root_ephemeral",
+    "runner_policy_id",
+    "runner_policy_digest_sha256",
+    "runner_id",
+    "runner_executable_realpath",
+    "runner_executable_digest_sha256",
+    "direct_exec_only",
+    "arbitrary_shell",
+    "inline_code",
+    "command_argv",
+    "command_source_argv_index",
+    "command_source_path",
+    "command_source_realpath",
+    "command_source_digest_sha256",
+    "authorized_source_pathset",
+    "authorized_source_pathset_digest_sha256",
+    "expected_outputs",
+    "expected_exit_codes",
+    "timeout_seconds",
+    "network",
+    "secrets",
+    "installation",
+    "runtime_mutation",
+    "isolated_environment",
+    "source_tree_read_only",
+    "git_metadata_read_only",
+    "writable_output_pathset"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "validation_id": { "type": "string", "minLength": 1 },
+    "state": { "enum": ["DRAFT", "AUTHORIZED", "RUNNING", "PASS", "BLOCKED"] },
+    "blocked_phase": { "enum": ["PRECHECK", "RUN", "POSTCHECK"] },
+    "handoff_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handoff_ref", "handoff_id", "handoff_digest_sha256", "source_owner_id", "target_agent", "repository_id", "head_sha", "branch", "worktree_id", "source_root_realpath", "exact_pathset_digest_sha256"],
+      "properties": {
+        "handoff_ref": { "type": "string", "pattern": "^git-sha256://[0-9a-f]{40}/handoffs/[A-Za-z0-9._-]+\\.json$" },
+        "handoff_id": { "type": "string", "minLength": 1 },
+        "handoff_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "source_owner_id": { "type": "string", "minLength": 1 },
+        "target_agent": { "const": "c3po-cepo" },
+        "repository_id": { "type": "string", "minLength": 1 },
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "branch": { "type": "string", "minLength": 1 },
+        "worktree_id": { "type": "string", "minLength": 1 },
+        "source_root_realpath": { "type": "string", "pattern": "^/" },
+        "exact_pathset_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "repository_id": { "type": "string", "minLength": 1 },
+    "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "branch": { "type": "string", "minLength": 1 },
+    "worktree_id": { "type": "string", "minLength": 1 },
+    "integration_boundary_id": { "type": "string", "minLength": 1 },
+    "working_directory": { "type": "string", "pattern": "^/" },
+    "source_root_realpath": { "type": "string", "pattern": "^/" },
+    "git_metadata_realpath": { "type": "string", "pattern": "^/" },
+    "output_root_realpath": { "type": "string", "pattern": "^/" },
+    "output_root_ephemeral": { "const": true },
+    "runner_policy_id": { "const": "c3po-direct-runner-policy-v1" },
+    "runner_policy_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "runner_id": { "const": "ruby-script-v1" },
+    "runner_executable_realpath": { "const": "/usr/bin/ruby" },
+    "runner_executable_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "direct_exec_only": { "const": true },
+    "arbitrary_shell": { "const": "DENY" },
+    "inline_code": { "const": "DENY" },
+    "command_argv": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "command_source_argv_index": { "type": "integer", "minimum": 0 },
+    "command_source_path": { "type": "string", "minLength": 1 },
+    "command_source_realpath": { "type": "string", "pattern": "^/" },
+    "command_source_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "authorized_source_pathset": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^/" }
+    },
+    "authorized_source_pathset_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "expected_outputs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "expected_exit_codes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer" } },
+    "timeout_seconds": { "type": "integer", "minimum": 1 },
+    "network": { "const": "DENY" },
+    "secrets": { "const": "DENY" },
+    "installation": { "const": "DENY" },
+    "runtime_mutation": { "const": "DENY" },
+    "isolated_environment": { "type": "string", "minLength": 1 },
+    "source_tree_read_only": { "const": true },
+    "git_metadata_read_only": { "const": true },
+    "writable_output_pathset": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^/" }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner_identity", "approval_id", "validation_scope_digest_sha256", "evidence", "approved_at", "expires_at", "revoked_at"],
+      "properties": {
+        "owner_identity": { "type": "string", "minLength": 1 },
+        "approval_id": { "type": "string", "minLength": 1 },
+        "validation_scope_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "evidence": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "revoked_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "before": { "$ref": "#/$defs/treeProof" },
+    "after": { "$ref": "#/$defs/afterTreeProof" },
+    "observed": { "$ref": "#/$defs/observedResult" }
+  },
+  "$defs": {
+    "treeProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "head_sha",
+        "branch",
+        "integration_boundary_id",
+        "worktree_digest_sha256",
+        "git_status_digest_sha256",
+        "stage_digest_sha256",
+        "git_refs_digest_sha256",
+        "output_inventory_digest_sha256"
+      ],
+      "properties": {
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "branch": { "type": "string", "minLength": 1 },
+        "integration_boundary_id": { "type": "string", "minLength": 1 },
+        "worktree_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "git_status_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "stage_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "git_refs_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "output_inventory_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "afterTreeProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "head_sha",
+        "branch",
+        "integration_boundary_id",
+        "worktree_digest_sha256",
+        "git_status_digest_sha256",
+        "stage_digest_sha256",
+        "git_refs_digest_sha256",
+        "output_inventory_digest_sha256",
+        "source_mutation_count",
+        "git_metadata_mutation_count",
+        "outside_output_root_mutation_count"
+      ],
+      "properties": {
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "branch": { "type": "string", "minLength": 1 },
+        "integration_boundary_id": { "type": "string", "minLength": 1 },
+        "worktree_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "git_status_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "stage_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "git_refs_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "output_inventory_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "source_mutation_count": { "type": "integer", "minimum": 0 },
+        "git_metadata_mutation_count": { "type": "integer", "minimum": 0 },
+        "outside_output_root_mutation_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "observedResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result",
+        "exit_code",
+        "started_at",
+        "finished_at",
+        "stdout_digest_sha256",
+        "stderr_digest_sha256",
+        "output_artifacts"
+      ],
+      "properties": {
+        "result": { "enum": ["PASS", "BLOCKED", "NOT_RUN"] },
+        "exit_code": { "type": ["integer", "null"] },
+        "started_at": { "type": ["string", "null"], "format": "date-time" },
+        "finished_at": { "type": ["string", "null"], "format": "date-time" },
+        "stdout_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "stderr_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "output_artifacts": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["identifier", "realpath", "digest_sha256"],
+            "properties": {
+              "identifier": { "type": "string", "minLength": 1 },
+              "realpath": { "type": "string", "pattern": "^/" },
+              "digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "state": { "const": "DRAFT" } }, "required": ["state"] },
+      "then": {
+        "allOf": [
+          { "not": { "required": ["authorization"] } },
+          { "not": { "required": ["before"] } },
+          { "not": { "required": ["after"] } },
+          { "not": { "required": ["observed"] } },
+          { "not": { "required": ["blocked_phase"] } }
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "state": { "enum": ["AUTHORIZED", "RUNNING"] } }, "required": ["state"] },
+      "then": {
+        "required": ["authorization", "before"],
+        "properties": {
+          "authorization": {
+            "properties": { "revoked_at": { "type": "null" } }
+          }
+        },
+        "allOf": [
+          { "not": { "required": ["after"] } },
+          { "not": { "required": ["observed"] } },
+          { "not": { "required": ["blocked_phase"] } }
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "state": { "const": "PASS" } }, "required": ["state"] },
+      "then": {
+        "required": ["authorization", "before", "after", "observed"],
+        "properties": {
+          "authorization": {
+            "properties": { "revoked_at": { "type": "null" } }
+          }
+        },
+        "not": { "required": ["blocked_phase"] }
+      }
+    },
+    {
+      "if": { "properties": { "state": { "const": "PASS" } }, "required": ["state"] },
+      "then": {
+        "properties": {
+          "after": {
+            "properties": {
+              "source_mutation_count": { "const": 0 },
+              "git_metadata_mutation_count": { "const": 0 },
+              "outside_output_root_mutation_count": { "const": 0 }
+            }
+          },
+          "observed": { "properties": { "result": { "const": "PASS" } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "state": { "const": "BLOCKED" } }, "required": ["state"] },
+      "then": {
+        "required": ["blocked_phase", "observed"],
+        "properties": {
+          "observed": { "properties": { "result": { "enum": ["BLOCKED", "NOT_RUN"] } } }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": { "const": "BLOCKED" },
+          "blocked_phase": { "const": "PRECHECK" }
+        },
+        "required": ["state", "blocked_phase"]
+      },
+      "then": {
+        "allOf": [
+          { "not": { "required": ["before"] } },
+          { "not": { "required": ["after"] } }
+        ],
+        "properties": {
+          "observed": {
+            "properties": {
+              "result": { "const": "NOT_RUN" },
+              "exit_code": { "type": "null" },
+              "started_at": { "type": "null" },
+              "finished_at": { "type": "null" },
+              "output_artifacts": { "maxItems": 0 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": { "const": "BLOCKED" },
+          "blocked_phase": { "enum": ["RUN", "POSTCHECK"] }
+        },
+        "required": ["state", "blocked_phase"]
+      },
+      "then": {
+        "required": ["authorization", "before", "after", "observed"],
+        "properties": {
+          "observed": { "properties": { "result": { "const": "BLOCKED" } } }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,232 @@
+schema_version: 1
+version: 0.1.0-draft.8
+
+source_bundle_fixtures:
+  store://context-sources/CTX-SPEC-SUBMITTED.json:
+    source_schema: r2d2-context-source-v1
+    repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}
+    facts: {specification_materially_changed: true, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}
+  store://context-sources/CTX-SPEC-COMPLETED.json:
+    source_schema: r2d2-context-source-v1
+    repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}
+    facts: {specification_materially_changed: true, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: true, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}
+  store://context-sources/CTX-NONE.json:
+    source_schema: r2d2-context-source-v1
+    repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}
+    facts: {specification_materially_changed: false, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: false, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}
+  store://context-sources/CTX-SECURITY-SUBMITTED.json:
+    source_schema: r2d2-context-source-v1
+    repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}
+    facts: {specification_materially_changed: true, security_boundary_or_control_changed: true, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}
+
+identity_attestation_fixtures:
+  store://identity-attestations/eliane-context-v1.json:
+    {attestation_schema: r2d2-external-identity-attestation-v1, identity: eliane, credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_root_ref: codex-local-trust-root-v1, assertion: task_context, authenticated: true}
+
+previous_record_fixtures:
+  git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r1.json:
+    {record_schema: r2d2-state-transition-record-v1, record_type: red_team_engagement, record_id: RED-001, revision: 1, state: DRAFT, artifact_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/artifacts/red-001-r1.json, artifact_digest_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+  git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json:
+    {record_schema: r2d2-state-transition-record-v1, record_type: red_team_engagement, record_id: RED-001, revision: 2, state: AUTHORIZED, artifact_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/artifacts/red-001-r2.json, artifact_digest_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+  git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r1.json:
+    {record_schema: r2d2-state-transition-record-v1, record_type: incident_response, record_id: INCIDENT-001, revision: 1, state: DRAFT, artifact_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/artifacts/incident-001-r1.json, artifact_digest_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+  git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r3.json:
+    {record_schema: r2d2-state-transition-record-v1, record_type: incident_response, record_id: INCIDENT-001, revision: 3, state: ACTIVE, artifact_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/artifacts/incident-001-r3.json, artifact_digest_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+
+context_fixtures:
+  CTX-SPEC-SUBMITTED:
+    {schema_version: 1, context_schema: r2d2-task-context-v1, context_id: CTX-SPEC-SUBMITTED, repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}, producer_identity: source_owner, source_bundle_ref: store://context-sources/CTX-SPEC-SUBMITTED.json, source_bundle_digest_sha256: 5859e375a645f440313ab60195a81be57990aa77afd1095ce56204899caa154b, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, facts: {specification_materially_changed: true, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}}
+  CTX-SPEC-COMPLETED:
+    {schema_version: 1, context_schema: r2d2-task-context-v1, context_id: CTX-SPEC-COMPLETED, repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}, producer_identity: source_owner, source_bundle_ref: store://context-sources/CTX-SPEC-COMPLETED.json, source_bundle_digest_sha256: 73fca992f51ba2ff2ef5ddf8049a45f6ffe8845aa09a5a87738e75c67eb02ba4, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, facts: {specification_materially_changed: true, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: true, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}}
+  CTX-NONE:
+    {schema_version: 1, context_schema: r2d2-task-context-v1, context_id: CTX-NONE, repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}, producer_identity: source_owner, source_bundle_ref: store://context-sources/CTX-NONE.json, source_bundle_digest_sha256: 3cf4f8e52122d4e58cb6d916fa60beb1df9e3c76a3e965ea844a99f92638c618, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, facts: {specification_materially_changed: false, security_boundary_or_control_changed: false, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: false, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}}
+  CTX-SECURITY-SUBMITTED:
+    {schema_version: 1, context_schema: r2d2-task-context-v1, context_id: CTX-SECURITY-SUBMITTED, repository: {repository_id: agenteze, base_sha: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, source_root_realpath: /repo, exact_pathset_digest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}, producer_identity: source_owner, source_bundle_ref: store://context-sources/CTX-SECURITY-SUBMITTED.json, source_bundle_digest_sha256: 1e4f23651a7e30b54c4e7157a003bce8a8fdb863346fbc5b40df66395c9be682, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, facts: {specification_materially_changed: true, security_boundary_or_control_changed: true, personal_or_sensitive_data_processed: false, security_tooling_or_active_test_executed: false, cyber_lab_red_used: false, security_findings_reported: false, authorized_remediation_in_scope: false, security_control_changed_or_finding_remediated: false, artifact_submitted_to_canonical_integration: true, canonical_integration_completed: false, release_or_publication_requested: false, human_acceptance_or_residual_risk_required: false}}
+
+verification_receipt_fixtures:
+  store://verifications/VERIFY-SPEC.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-SPEC, context_id: CTX-SPEC-SUBMITTED, context_ref: store://contexts/CTX-SPEC-SUBMITTED.json, verified_context_digest_sha256: 97daca1b5e7019bcec2dd9264d61614b18d1374cbf5cd664f49dc01281e883e3, source_bundle_ref: store://context-sources/CTX-SPEC-SUBMITTED.json, verified_source_bundle_digest_sha256: 5859e375a645f440313ab60195a81be57990aa77afd1095ce56204899caa154b, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, receipt_digest_sha256: dd8e5f61df9370d56441a87aca9424e18c2bcef7e7b112a6a84fee7091870d21}
+  store://verifications/VERIFY-EXTRA.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-EXTRA, context_id: CTX-SPEC-SUBMITTED, context_ref: store://contexts/CTX-SPEC-SUBMITTED.json, verified_context_digest_sha256: 97daca1b5e7019bcec2dd9264d61614b18d1374cbf5cd664f49dc01281e883e3, source_bundle_ref: store://context-sources/CTX-SPEC-SUBMITTED.json, verified_source_bundle_digest_sha256: 5859e375a645f440313ab60195a81be57990aa77afd1095ce56204899caa154b, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, unexpected: DENY, receipt_digest_sha256: db0d664a802bd64c147b87e5f66fe3018b8c5d68761cb2f3a8c754bedc5fe063}
+  store://verifications/VERIFY-BAD-DIGEST.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-BAD-DIGEST, context_id: CTX-SPEC-SUBMITTED, context_ref: store://contexts/CTX-SPEC-SUBMITTED.json, verified_context_digest_sha256: 97daca1b5e7019bcec2dd9264d61614b18d1374cbf5cd664f49dc01281e883e3, source_bundle_ref: store://context-sources/CTX-SPEC-SUBMITTED.json, verified_source_bundle_digest_sha256: 5859e375a645f440313ab60195a81be57990aa77afd1095ce56204899caa154b, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, receipt_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}
+  store://verifications/VERIFY-COMPLETED.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-COMPLETED, context_id: CTX-SPEC-COMPLETED, context_ref: store://contexts/CTX-SPEC-COMPLETED.json, verified_context_digest_sha256: 1dd5e0341886257bd95b3eecd1452ef5dda8b76bd7b258265c0ccc7162176b1d, source_bundle_ref: store://context-sources/CTX-SPEC-COMPLETED.json, verified_source_bundle_digest_sha256: 73fca992f51ba2ff2ef5ddf8049a45f6ffe8845aa09a5a87738e75c67eb02ba4, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, receipt_digest_sha256: dda4f434cbc0162df7b01d3673d9e770b6a3d387c7a37adbeb70514410151751}
+  store://verifications/VERIFY-NONE.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-NONE, context_id: CTX-NONE, context_ref: store://contexts/CTX-NONE.json, verified_context_digest_sha256: a0d45bc34d9117053170378135d54fbdce455a1af1cb14cab53c044a95366039, source_bundle_ref: store://context-sources/CTX-NONE.json, verified_source_bundle_digest_sha256: 3cf4f8e52122d4e58cb6d916fa60beb1df9e3c76a3e965ea844a99f92638c618, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, receipt_digest_sha256: 89d30ab39c079ff21c5a69d522011cd55a7cec793054467a9209bd6bdaa985bb}
+  store://verifications/VERIFY-SECURITY.json:
+    {receipt_schema: r2d2-context-verification-receipt-v1, verification_id: VERIFY-SECURITY, context_id: CTX-SECURITY-SUBMITTED, context_ref: store://contexts/CTX-SECURITY-SUBMITTED.json, verified_context_digest_sha256: 1cdbd2ebcc4542a4736a08b42f8793d899a02df4ed80c00fb4dd384f03ec4d12, source_bundle_ref: store://context-sources/CTX-SECURITY-SUBMITTED.json, verified_source_bundle_digest_sha256: 1e4f23651a7e30b54c4e7157a003bce8a8fdb863346fbc5b40df66395c9be682, extractor_id: r2d2-context-extractor-v1, extractor_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, verifier_identity: eliane, verifier_credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee, trust_policy_id: r2d2-context-trust-policy-v1, trust_policy_digest_sha256: 284c5614755a01f11aeb6981b45990852c48744657d7eef822c1d6622683d239, authentication_evidence_ref: store://identity-attestations/eliane-context-v1.json, authentication_evidence_digest_sha256: 562c0a7c0599e54419162c31e6ba344c79e5d3867a9401a3e53e3b2709dc22af, verified_at: 2026-08-31T09:30:00Z, result: PASS, receipt_digest_sha256: 9e7ef12ca06aa652b835ae9004371ed2d6eb0ee7c170a3039c50a97690d06f14}
+
+handoff_fixtures:
+  git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/handoffs/HANDOFF-001.json:
+    schema_version: 1
+    handoff_id: HANDOFF-001
+    created_at: 2026-08-31T10:00:00Z
+    source_agent: r2d2-global
+    target_agent: c3po-cepo
+    state: TESTED
+    owner_id: source_owner
+    objective: Validate the authorized source tree without mutation
+    repository: {repository_id: agenteze, branch: source-branch, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, worktree_id: worktree-001, source_root_realpath: /repo}
+    exact_pathset: [/repo/scripts]
+    artifacts: [{path: /repo/scripts/validate.rb, digest_sha256: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, state: TESTED}]
+    dependencies: []
+    task_context_binding: {context_schema: r2d2-task-context-v1, context_id: CTX-SPEC-SUBMITTED, context_ref: store://contexts/CTX-SPEC-SUBMITTED.json, context_digest_sha256: 97daca1b5e7019bcec2dd9264d61614b18d1374cbf5cd664f49dc01281e883e3, producer_identity: source_owner, verifier_identity: eliane, verification_id: VERIFY-SPEC, verification_receipt_ref: store://verifications/VERIFY-SPEC.json, verification_receipt_digest_sha256: dd8e5f61df9370d56441a87aca9424e18c2bcef7e7b112a6a84fee7091870d21, verified_at: 2026-08-31T09:30:00Z}
+    gate_catalog_version: r2d2-global@0.1.0-draft.8
+    gate_catalog_digest_sha256: e4c026b0f63b96020163d86f62ff7338d26af8e87e61f15248045cc3221ef869
+    gates:
+      - {id: SPEC_APPROVED, applicability: APPLICABLE, when_context: specification_materially_changed, status: PASS, owner: ze, evidence: approved-spec}
+      - {id: SECURITY_DESIGN_REVIEWED, applicability: NOT_APPLICABLE, when_context: security_boundary_or_control_changed, status: NOT_APPLICABLE, owner: cristine, evidence: context-source}
+      - {id: PRIVACY_REVIEWED, applicability: NOT_APPLICABLE, when_context: personal_or_sensitive_data_processed, status: NOT_APPLICABLE, owner: doneda, evidence: context-source}
+      - {id: LAB_ISOLATED, applicability: NOT_APPLICABLE, when_context: security_tooling_or_active_test_executed, status: NOT_APPLICABLE, owner: tereza, evidence: context-source}
+      - {id: RED_AUTHORIZED, applicability: NOT_APPLICABLE, when_context: cyber_lab_red_used, status: NOT_APPLICABLE, owner: roberto, evidence: context-source}
+      - {id: FINDINGS_REPRODUCED, applicability: NOT_APPLICABLE, when_context: security_findings_reported, status: NOT_APPLICABLE, owner: eliane_or_named_independent_reviewer, evidence: context-source}
+      - {id: REMEDIATION_IMPLEMENTED, applicability: NOT_APPLICABLE, when_context: authorized_remediation_in_scope, status: NOT_APPLICABLE, owner: named_writer, evidence: context-source}
+      - {id: SECURITY_VERIFIED, applicability: NOT_APPLICABLE, when_context: security_control_changed_or_finding_remediated, status: NOT_APPLICABLE, owner: cristine, evidence: context-source}
+      - {id: C3PO_CEPO_INTEGRATED, applicability: APPLICABLE, when_context: artifact_submitted_to_canonical_integration, status: PENDING, owner: c3po-cepo, evidence: validation-pending}
+      - {id: RELEASE_READY, applicability: NOT_APPLICABLE, when_context: release_or_publication_requested, status: NOT_APPLICABLE, owner: tereza, evidence: context-source}
+      - {id: HUMAN_ACCEPTED, applicability: NOT_APPLICABLE, when_context: human_acceptance_or_residual_risk_required, status: NOT_APPLICABLE, owner: roberto, evidence: context-source}
+    relationships: [{party_a: r2d2-global, party_b: c3po-cepo, classification: integracao_serial, proof: handoff}]
+    version_impact: patch
+    tests: [{name: documentary-suite, status: PASS, evidence: semantic-validator}]
+    rollback: Revert the integration commit
+    next_action: Validate and integrate serially
+
+validation_scope_fixtures:
+  C3PO-VALID:
+    handoff_binding: {handoff_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/handoffs/HANDOFF-001.json, handoff_id: HANDOFF-001, handoff_digest_sha256: 8beaedeac5202b93a0748a48dd2377c7e2e27d68145bf5d2c9a964e88e934953, source_owner_id: source_owner, target_agent: c3po-cepo, repository_id: agenteze, head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, branch: source-branch, worktree_id: worktree-001, source_root_realpath: /repo, exact_pathset_digest_sha256: eeb48de21fec3488e575204302f1260b3eddfa7e3c4b885765999a89362dcbf7}
+    repository_id: agenteze
+    head_sha: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    branch: source-branch
+    worktree_id: worktree-001
+    integration_boundary_id: integration-main
+    working_directory: /repo
+    source_root_realpath: /repo
+    git_metadata_realpath: /repo/.git
+    output_root_realpath: /tmp/c3po/run
+    output_root_ephemeral: true
+    runner_policy_id: c3po-direct-runner-policy-v1
+    runner_policy_digest_sha256: 1f5e75fa8b3bdd7c06674674f3d581890734cde9be16d37422e5e75bc0d422db
+    runner_id: ruby-script-v1
+    runner_executable_realpath: /usr/bin/ruby
+    runner_executable_digest_sha256: dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    direct_exec_only: true
+    arbitrary_shell: DENY
+    inline_code: DENY
+    command_argv: [/usr/bin/ruby, /repo/scripts/validate.rb]
+    command_source_argv_index: 1
+    command_source_path: scripts/validate.rb
+    command_source_realpath: /repo/scripts/validate.rb
+    command_source_digest_sha256: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+    authorized_source_pathset: [/repo/scripts]
+    authorized_source_pathset_digest_sha256: eeb48de21fec3488e575204302f1260b3eddfa7e3c4b885765999a89362dcbf7
+    expected_outputs: [report]
+    expected_exit_codes: [0]
+    timeout_seconds: 60
+    network: DENY
+    secrets: DENY
+    installation: DENY
+    runtime_mutation: DENY
+    isolated_environment: sandbox-001
+    source_tree_read_only: true
+    git_metadata_read_only: true
+    writable_output_pathset: [/tmp/c3po/run/report.json]
+
+input_fixtures:
+  HANDOFF-BASE:
+    gate_catalog_version: r2d2-global@0.1.0-draft.8
+    expected_gate_catalog_version: r2d2-global@0.1.0-draft.8
+    recorded_digest: e4c026b0f63b96020163d86f62ff7338d26af8e87e61f15248045cc3221ef869
+    recalculated_digest: e4c026b0f63b96020163d86f62ff7338d26af8e87e61f15248045cc3221ef869
+    gate_ids: [SPEC_APPROVED, SECURITY_DESIGN_REVIEWED, PRIVACY_REVIEWED, LAB_ISOLATED, RED_AUTHORIZED, FINDINGS_REPRODUCED, REMEDIATION_IMPLEMENTED, SECURITY_VERIFIED, C3PO_CEPO_INTEGRATED, RELEASE_READY, HUMAN_ACCEPTED]
+    applicable_ids: [SPEC_APPROVED, C3PO_CEPO_INTEGRATED]
+    pass_ids: [SPEC_APPROVED]
+    pending_ids: [C3PO_CEPO_INTEGRATED]
+    blocked_ids: []
+    not_applicable_ids: [SECURITY_DESIGN_REVIEWED, PRIVACY_REVIEWED, LAB_ISOLATED, RED_AUTHORIZED, FINDINGS_REPRODUCED, REMEDIATION_IMPLEMENTED, SECURITY_VERIFIED, RELEASE_READY, HUMAN_ACCEPTED]
+    evidence_ids: [SPEC_APPROVED, SECURITY_DESIGN_REVIEWED, PRIVACY_REVIEWED, LAB_ISOLATED, RED_AUTHORIZED, FINDINGS_REPRODUCED, REMEDIATION_IMPLEMENTED, SECURITY_VERIFIED, C3PO_CEPO_INTEGRATED, RELEASE_READY, HUMAN_ACCEPTED]
+    canonical_task_context_ref: CTX-SPEC-SUBMITTED
+    task_context_binding: {context_schema: r2d2-task-context-v1, context_id: CTX-SPEC-SUBMITTED, context_ref: store://contexts/CTX-SPEC-SUBMITTED.json, context_digest_sha256: 97daca1b5e7019bcec2dd9264d61614b18d1374cbf5cd664f49dc01281e883e3, producer_identity: source_owner, verifier_identity: eliane, verification_id: VERIFY-SPEC, verification_receipt_ref: store://verifications/VERIFY-SPEC.json, verification_receipt_digest_sha256: dd8e5f61df9370d56441a87aca9424e18c2bcef7e7b112a6a84fee7091870d21, verified_at: 2026-08-31T09:30:00Z}
+    handoff_owner: source_owner
+    handoff_created_at: 2026-08-31T10:00:00Z
+    handoff_repository: agenteze
+    handoff_source_root: /repo
+    handoff_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    handoff_pathset_digest: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+    gate_owners: {SPEC_APPROVED: ze, SECURITY_DESIGN_REVIEWED: cristine, PRIVACY_REVIEWED: doneda, LAB_ISOLATED: tereza, RED_AUTHORIZED: roberto, FINDINGS_REPRODUCED: eliane_or_named_independent_reviewer, REMEDIATION_IMPLEMENTED: named_writer, SECURITY_VERIFIED: cristine, C3PO_CEPO_INTEGRATED: c3po-cepo, RELEASE_READY: tereza, HUMAN_ACCEPTED: roberto}
+    handoff_state: TESTED
+  C3PO-BASE:
+    validation_scope_ref: C3PO-VALID
+    validation_scope_overrides: {}
+    authorization: {owner_identity: source_owner, approval_id: APPROVAL-001, validation_scope_digest_sha256: 7558341f2b138521c21a8e738b1a9758f592343efb50f5eebd4ba5236c1484e0, evidence: approval-record, approved_at: 2026-08-31T10:00:00Z, expires_at: 2026-08-31T12:00:00Z, revoked_at: null}
+    source_handoff_id: HANDOFF-001
+    handoff_recorded_digest: 8beaedeac5202b93a0748a48dd2377c7e2e27d68145bf5d2c9a964e88e934953
+    handoff_recalculated_digest: 8beaedeac5202b93a0748a48dd2377c7e2e27d68145bf5d2c9a964e88e934953
+    handoff_owner: source_owner
+    handoff_repository: agenteze
+    handoff_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    handoff_branch: source-branch
+    handoff_worktree: worktree-001
+    handoff_source_root: /repo
+    handoff_pathset_digest: eeb48de21fec3488e575204302f1260b3eddfa7e3c4b885765999a89362dcbf7
+    handoff_paths: [/repo/scripts]
+    command_recalculated_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+    approved_at: 2026-08-31T10:00:00Z
+    current_at: 2026-08-31T11:00:00Z
+    expires_at: 2026-08-31T12:00:00Z
+
+cases:
+  - {id: red_distinct_identities, rule: RED_IDENTITY_SEPARATION, input: {approver: roberto, executor: red_executor, kill_switch_operator: blue_operator, reviewer: eliane}, expected: PASS}
+  - {id: red_same_identity, rule: RED_IDENTITY_SEPARATION, input: {approver: roberto, executor: roberto, kill_switch_operator: blue_operator, reviewer: eliane}, expected: BLOCKED_ROE}
+  - {id: red_authorization_current, rule: RED_TIME_AND_REVOCATION, input: {approved_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T11:00:00Z, expires_at: 2026-08-31T12:00:00Z, revoked: false}, expected: PASS}
+  - {id: red_authorization_expired, rule: RED_TIME_AND_REVOCATION, input: {approved_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T13:00:00Z, expires_at: 2026-08-31T12:00:00Z, revoked: false}, expected: BLOCKED_ROE}
+  - {id: red_kill_switch_independent, rule: RED_KILL_SWITCH_INDEPENDENCE, input: {executor: red_executor, operator: blue_operator, tested_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T11:00:00Z, test_valid_until: 2026-08-31T12:00:00Z, test_result: PASS, automatic_stop_on_control_loss: true}, expected: PASS}
+  - {id: red_kill_switch_same_operator, rule: RED_KILL_SWITCH_INDEPENDENCE, input: {executor: red_executor, operator: red_executor, tested_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T11:00:00Z, test_valid_until: 2026-08-31T12:00:00Z, test_result: PASS, automatic_stop_on_control_loss: true}, expected: BLOCKED_ROE}
+  - {id: red_scope_digest_match, rule: RED_SCOPE_DIGEST, input: {canonicalization_version: r2d2-c14n-v1, recorded: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, recalculated: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}, expected: PASS}
+  - {id: red_scope_digest_tampered, rule: RED_SCOPE_DIGEST, input: {canonicalization_version: r2d2-c14n-v1, recorded: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, recalculated: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb}, expected: BLOCKED_ROE}
+  - {id: red_prohibitions_complete, rule: RED_MINIMUM_PROHIBITIONS, input: {prohibited: [destructive_payloads, uncontrolled_denial_of_service, real_data_exfiltration, unauthorized_persistence, target_expansion]}, expected: PASS}
+  - {id: red_prohibitions_missing, rule: RED_MINIMUM_PROHIBITIONS, input: {prohibited: [destructive_payloads]}, expected: BLOCKED_ROE}
+  - {id: red_risk_owner, rule: RED_RESIDUAL_RISK_OWNER, input: {residual_risk_owner: roberto}, expected: PASS}
+  - {id: red_risk_owner_wrong, rule: RED_RESIDUAL_RISK_OWNER, input: {residual_risk_owner: executor}, expected: BLOCKED_ROE}
+  - {id: red_transition_initial, rule: RED_STATE_TRANSITION, input: {from: null, to: DRAFT, current_record_id: RED-NEW, current_revision: 1, previous_record_ref: null, record_state: DRAFT, previous_recorded_digest: null}, expected: PASS}
+  - {id: red_transition_valid, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-001, current_revision: 3, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json, record_state: ACTIVE, previous_recorded_digest: a589e1ea00d9dc31a2dadc7620bfe15d2b12c8867a64a19b46b381f4275a7966}, expected: PASS}
+  - {id: red_transition_forged_state, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-001, current_revision: 2, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r1.json, record_state: ACTIVE, previous_recorded_digest: feb306d6f1c6b08162cbafbcc399b8d373ff4984ac60fa6bb2168df1f8cbce92}, expected: BLOCKED_ROE}
+  - {id: red_transition_side_channel, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-001, current_revision: 3, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json, previous_record: {state: AUTHORIZED}, record_state: ACTIVE, previous_recorded_digest: a589e1ea00d9dc31a2dadc7620bfe15d2b12c8867a64a19b46b381f4275a7966}, expected: BLOCKED_ROE}
+  - {id: red_transition_wrong_record_id, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-OTHER, current_revision: 3, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json, record_state: ACTIVE, previous_recorded_digest: a589e1ea00d9dc31a2dadc7620bfe15d2b12c8867a64a19b46b381f4275a7966}, expected: BLOCKED_ROE}
+  - {id: red_transition_repeated_revision, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-001, current_revision: 2, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json, record_state: ACTIVE, previous_recorded_digest: a589e1ea00d9dc31a2dadc7620bfe15d2b12c8867a64a19b46b381f4275a7966}, expected: BLOCKED_ROE}
+  - {id: red_transition_skipped_revision, rule: RED_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: RED-001, current_revision: 4, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/red-001-r2.json, record_state: ACTIVE, previous_recorded_digest: a589e1ea00d9dc31a2dadc7620bfe15d2b12c8867a64a19b46b381f4275a7966}, expected: BLOCKED_ROE}
+  - {id: ir_double_authorized, rule: IR_DOUBLE_AUTHORIZATION, input: {roberto_approved: true, tereza_approved: true, executor: r2d2, roberto_identity: roberto, tereza_identity: tereza, canonicalization_version: r2d2-c14n-v1, recorded_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, roberto_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, tereza_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, recalculated_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc}, expected: PASS}
+  - {id: ir_missing_tereza, rule: IR_DOUBLE_AUTHORIZATION, input: {roberto_approved: true, tereza_approved: false, executor: r2d2, roberto_identity: roberto, tereza_identity: tereza, canonicalization_version: r2d2-c14n-v1, recorded_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, roberto_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, tereza_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc, recalculated_digest: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc}, expected: BLOCKED_INCIDENT}
+  - {id: ir_approvals_current, rule: IR_TIME_AND_REVOCATION, input: {current_at: 2026-08-31T11:00:00Z, roberto_approved_at: 2026-08-31T10:00:00Z, roberto_expires_at: 2026-08-31T12:00:00Z, roberto_revoked: false, tereza_approved_at: 2026-08-31T10:01:00Z, tereza_expires_at: 2026-08-31T12:00:00Z, tereza_revoked: false}, expected: PASS}
+  - {id: ir_approval_revoked, rule: IR_TIME_AND_REVOCATION, input: {current_at: 2026-08-31T11:00:00Z, roberto_approved_at: 2026-08-31T10:00:00Z, roberto_expires_at: 2026-08-31T12:00:00Z, roberto_revoked: false, tereza_approved_at: 2026-08-31T10:01:00Z, tereza_expires_at: 2026-08-31T12:00:00Z, tereza_revoked: true}, expected: BLOCKED_INCIDENT}
+  - {id: ir_kill_switch_independent, rule: IR_KILL_SWITCH_INDEPENDENCE, input: {executor: r2d2, operator: tereza, tested_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T11:00:00Z, test_valid_until: 2026-08-31T12:00:00Z, test_result: PASS, automatic_stop_on_control_loss: true}, expected: PASS}
+  - {id: ir_kill_switch_same_operator, rule: IR_KILL_SWITCH_INDEPENDENCE, input: {executor: r2d2, operator: r2d2, tested_at: 2026-08-31T10:00:00Z, current_at: 2026-08-31T11:00:00Z, test_valid_until: 2026-08-31T12:00:00Z, test_result: PASS, automatic_stop_on_control_loss: true}, expected: BLOCKED_INCIDENT}
+  - {id: ir_transition_initial, rule: IR_STATE_TRANSITION, input: {from: null, to: DRAFT, current_record_id: INCIDENT-NEW, current_revision: 1, previous_record_ref: null, record_state: DRAFT, previous_recorded_digest: null}, expected: PASS}
+  - {id: ir_transition_valid, rule: IR_STATE_TRANSITION, input: {from: ACTIVE, to: CONTAINED, current_record_id: INCIDENT-001, current_revision: 4, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r3.json, record_state: CONTAINED, previous_recorded_digest: 3e47dd63e866f9bd869eac39e9c5b814199d8eabbf96f58429ffefc69f996356}, expected: PASS}
+  - {id: ir_transition_forged_state, rule: IR_STATE_TRANSITION, input: {from: AUTHORIZED, to: ACTIVE, current_record_id: INCIDENT-001, current_revision: 2, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r1.json, record_state: ACTIVE, previous_recorded_digest: 5dd8904ec35c2e71486fd1e133608ede3e5712b0c039b67992a2972c9eb7f806}, expected: BLOCKED_INCIDENT}
+  - {id: ir_transition_wrong_record_id, rule: IR_STATE_TRANSITION, input: {from: ACTIVE, to: CONTAINED, current_record_id: INCIDENT-OTHER, current_revision: 4, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r3.json, record_state: CONTAINED, previous_recorded_digest: 3e47dd63e866f9bd869eac39e9c5b814199d8eabbf96f58429ffefc69f996356}, expected: BLOCKED_INCIDENT}
+  - {id: ir_transition_repeated_revision, rule: IR_STATE_TRANSITION, input: {from: ACTIVE, to: CONTAINED, current_record_id: INCIDENT-001, current_revision: 3, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r3.json, record_state: CONTAINED, previous_recorded_digest: 3e47dd63e866f9bd869eac39e9c5b814199d8eabbf96f58429ffefc69f996356}, expected: BLOCKED_INCIDENT}
+  - {id: ir_transition_skipped_revision, rule: IR_STATE_TRANSITION, input: {from: ACTIVE, to: CONTAINED, current_record_id: INCIDENT-001, current_revision: 5, previous_record_ref: git-sha256://bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb/records/incident-001-r3.json, record_state: CONTAINED, previous_recorded_digest: 3e47dd63e866f9bd869eac39e9c5b814199d8eabbf96f58429ffefc69f996356}, expected: BLOCKED_INCIDENT}
+  - {id: handoff_gate_valid, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, expected: PASS}
+  - {id: handoff_gate_unknown, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {gate_ids: [SPEC_APPROVED, UNKNOWN]}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_context_digest_tampered, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.context_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_context_sockpuppet, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.verifier_identity: sockpuppet}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_context_receipt_missing, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.verification_receipt_ref: store://verifications/VERIFY-MISSING.json}, expected: DENY_INVALID_INPUT}
+  - {id: handoff_context_receipt_extra_field, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.verification_id: VERIFY-EXTRA, task_context_binding.verification_receipt_ref: store://verifications/VERIFY-EXTRA.json, task_context_binding.verification_receipt_digest_sha256: db0d664a802bd64c147b87e5f66fe3018b8c5d68761cb2f3a8c754bedc5fe063}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_context_receipt_binding_digest_mismatch, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.verification_receipt_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_context_receipt_self_digest_mismatch, rule: HANDOFF_GATE_COMPLETENESS, input_fixture_ref: HANDOFF-BASE, input_overrides: {task_context_binding.verification_id: VERIFY-BAD-DIGEST, task_context_binding.verification_receipt_ref: store://verifications/VERIFY-BAD-DIGEST.json, task_context_binding.verification_receipt_digest_sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff}, expected: BLOCKED_INTEGRATION}
+  - {id: handoff_committed_valid, rule: HANDOFF_STATE_CONSISTENCY, input: {state: COMMITTED, artifact_states: [COMMITTED], gate_statuses: [PASS], relationships: [integracao_serial], test_statuses: [PASS]}, expected: PASS}
+  - {id: handoff_committed_partial, rule: HANDOFF_STATE_CONSISTENCY, input: {state: COMMITTED, artifact_states: [TESTED], gate_statuses: [PASS], relationships: [integracao_serial], test_statuses: [PASS]}, expected: BLOCKED_INTEGRATION}
+  - {id: c3po_zero_mutation, rule: C3PO_ZERO_MUTATION, input: {declared_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, before_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, after_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, declared_branch: main, before_branch: main, after_branch: main, declared_boundary: integration-main, before_boundary: integration-main, after_boundary: integration-main, before_worktree: aaa, after_worktree: aaa, before_status: bbb, after_status: bbb, before_stage: ccc, after_stage: ccc, before_refs: ddd, after_refs: ddd, source_mutations: 0, git_mutations: 0, outside_output_mutations: 0}, expected: PASS}
+  - {id: c3po_mutated_head, rule: C3PO_ZERO_MUTATION, input: {declared_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, before_head: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, after_head: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb, declared_branch: main, before_branch: main, after_branch: main, declared_boundary: integration-main, before_boundary: integration-main, after_boundary: integration-main, before_worktree: aaa, after_worktree: aaa, before_status: bbb, after_status: bbb, before_stage: ccc, after_stage: ccc, before_refs: ddd, after_refs: ddd, source_mutations: 0, git_mutations: 0, outside_output_mutations: 0}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_binding_valid, rule: C3PO_HANDOFF_AUTHORIZATION_BINDING, input_fixture_ref: C3PO-BASE, expected: PASS}
+  - {id: c3po_binding_expired, rule: C3PO_HANDOFF_AUTHORIZATION_BINDING, input_fixture_ref: C3PO-BASE, input_overrides: {current_at: 2026-08-31T13:00:00Z}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_binding_shell_reauthorized, rule: C3PO_HANDOFF_AUTHORIZATION_BINDING, input_fixture_ref: C3PO-BASE, input_overrides: {validation_scope_overrides: {command_argv: [/bin/sh, -c, /repo/scripts/validate.rb], command_source_argv_index: 2, runner_executable_realpath: /bin/sh}, authorization.validation_scope_digest_sha256: cdc37fe3b9e39f578176bcfba888d12844b10cd75b8adf95c2076ab6ca4a7ec7}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_binding_negative_index_reauthorized, rule: C3PO_HANDOFF_AUTHORIZATION_BINDING, input_fixture_ref: C3PO-BASE, input_overrides: {validation_scope_overrides: {command_argv: [/usr/bin/ruby, ignored, /repo/scripts/validate.rb], command_source_argv_index: -1}, authorization.validation_scope_digest_sha256: 19a007df02633542431f7ba50cdcbd7ed0bea83f2d2b42e86e143fe0d651fadd}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_binding_forged_handoff_reauthorized, rule: C3PO_HANDOFF_AUTHORIZATION_BINDING, input_fixture_ref: C3PO-BASE, input_overrides: {validation_scope_overrides: {handoff_binding.handoff_id: HANDOFF-FORGED}, source_handoff_id: HANDOFF-FORGED, authorization.validation_scope_digest_sha256: 9f118757e2ab2568b460045f8417df4037dcc39b87eae5018bb39212db77e59c}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_pathset_isolated, rule: C3PO_PATHSET_ISOLATION, input: {source_root: /repo, git_root: /repo/.git, working_directory: /repo, output_root: /tmp/c3po/run, writable_paths: [/tmp/c3po/run/report.json], observed_paths: [/tmp/c3po/run/report.json], output_root_ephemeral: true, traversal_segments: 0, symlink_escapes: 0, unresolved_paths: 0}, expected: PASS}
+  - {id: c3po_pathset_inside_source, rule: C3PO_PATHSET_ISOLATION, input: {source_root: /repo, git_root: /repo/.git, working_directory: /repo, output_root: /repo/out, writable_paths: [/repo/out/report.json], observed_paths: [/repo/out/report.json], output_root_ephemeral: true, traversal_segments: 0, symlink_escapes: 0, unresolved_paths: 0}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_execution_pass, rule: C3PO_EXECUTION_RESULT, input: {state: PASS, observed_result: PASS, expected_exit_codes: [0], exit_code: 0, expected_outputs: [report], observed_outputs: [report], started_at: 2026-08-31T10:00:00Z, finished_at: 2026-08-31T10:01:00Z}, expected: PASS}
+  - {id: c3po_execution_wrong_exit, rule: C3PO_EXECUTION_RESULT, input: {state: PASS, observed_result: PASS, expected_exit_codes: [0], exit_code: 1, expected_outputs: [report], observed_outputs: [report], started_at: 2026-08-31T10:00:00Z, finished_at: 2026-08-31T10:01:00Z}, expected: BLOCKED_VALIDATION}
+  - {id: c3po_precheck_blocked, rule: C3PO_PRECHECK_FAIL_CLOSED, input: {state: BLOCKED, blocked_phase: PRECHECK, observed_result: NOT_RUN, exit_code: null, started_at: null, finished_at: null, output_artifacts: [], before_present: false, after_present: false}, expected: PASS}
+  - {id: c3po_precheck_forged_run, rule: C3PO_PRECHECK_FAIL_CLOSED, input: {state: BLOCKED, blocked_phase: PRECHECK, observed_result: PASS, exit_code: 0, started_at: 2026-08-31T10:00:00Z, finished_at: 2026-08-31T10:01:00Z, output_artifacts: [report], before_present: true, after_present: true}, expected: BLOCKED_VALIDATION}

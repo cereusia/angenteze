@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/r2d2-task-context.schema.json",
+  "title": "R2D2 canonical task context v1",
+  "$comment": "External, digest-bound input used to derive gate applicability. It is not authored inside the handoff and requires independent verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "context_schema",
+    "context_id",
+    "repository",
+    "producer_identity",
+    "source_bundle_ref",
+    "source_bundle_digest_sha256",
+    "extractor_id",
+    "extractor_digest_sha256",
+    "facts"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "context_schema": { "const": "r2d2-task-context-v1" },
+    "context_id": { "type": "string", "minLength": 1 },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_id", "base_sha", "head_sha", "source_root_realpath", "exact_pathset_digest_sha256"],
+      "properties": {
+        "repository_id": { "type": "string", "minLength": 1 },
+        "base_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "source_root_realpath": { "type": "string", "pattern": "^/" },
+        "exact_pathset_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "producer_identity": { "type": "string", "minLength": 1 },
+    "source_bundle_ref": { "type": "string", "pattern": "^store://context-sources/[A-Za-z0-9._-]+\\.json$" },
+    "source_bundle_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "extractor_id": { "const": "r2d2-context-extractor-v1" },
+    "extractor_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "facts": { "$ref": "#/$defs/facts" }
+  },
+  "$defs": {
+    "facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "specification_materially_changed",
+        "security_boundary_or_control_changed",
+        "personal_or_sensitive_data_processed",
+        "security_tooling_or_active_test_executed",
+        "cyber_lab_red_used",
+        "security_findings_reported",
+        "authorized_remediation_in_scope",
+        "security_control_changed_or_finding_remediated",
+        "artifact_submitted_to_canonical_integration",
+        "canonical_integration_completed",
+        "release_or_publication_requested",
+        "human_acceptance_or_residual_risk_required"
+      ],
+      "properties": {
+        "specification_materially_changed": { "type": "boolean" },
+        "security_boundary_or_control_changed": { "type": "boolean" },
+        "personal_or_sensitive_data_processed": { "type": "boolean" },
+        "security_tooling_or_active_test_executed": { "type": "boolean" },
+        "cyber_lab_red_used": { "type": "boolean" },
+        "security_findings_reported": { "type": "boolean" },
+        "authorized_remediation_in_scope": { "type": "boolean" },
+        "security_control_changed_or_finding_remediated": { "type": "boolean" },
+        "artifact_submitted_to_canonical_integration": { "type": "boolean" },
+        "canonical_integration_completed": { "type": "boolean" },
+        "release_or_publication_requested": { "type": "boolean" },
+        "human_acceptance_or_residual_risk_required": { "type": "boolean" }
+      }
+    }
+  }
+}

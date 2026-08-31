@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/red-team-engagement.schema.json",
+  "title": "R2D2 Red Team engagement",
+  "$comment": "Structural schema. Cross-field identity, time, digest and transition rules require agents/validation/r2d2-semantic-rules.yaml and docs/security/R2D2_CANONICAL_DIGESTS.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "roe_version",
+    "engagement_id",
+    "revision",
+    "state",
+    "transition",
+    "objective",
+    "scope",
+    "environment",
+    "techniques",
+    "limits",
+    "credentials",
+    "monitoring",
+    "evidence",
+    "cleanup"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "roe_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "engagement_id": { "type": "string", "minLength": 1 },
+    "revision": { "type": "integer", "minimum": 1 },
+    "state": { "enum": ["DRAFT", "AUTHORIZED", "ACTIVE", "CLOSED", "REVOKED"] },
+    "transition": { "$ref": "#/$defs/stateTransition" },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_id",
+        "approved_by_identity",
+        "executor_identity",
+        "executor_must_differ_from_approver",
+        "approved_at",
+        "expires_at",
+        "revoked_at",
+        "revoked_by_identity",
+        "authorization_evidence"
+      ],
+      "properties": {
+        "authorization_id": { "type": "string", "minLength": 1 },
+        "approved_by_identity": { "const": "roberto" },
+        "executor_identity": { "type": "string", "minLength": 1 },
+        "executor_must_differ_from_approver": { "const": true },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "revoked_at": { "type": ["string", "null"], "format": "date-time" },
+        "revoked_by_identity": { "type": ["string", "null"] },
+        "authorization_evidence": { "type": "string", "minLength": 1 }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "success_criteria"],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "success_criteria": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_digest_sha256",
+        "canonicalization_version",
+        "payload_type",
+        "immutable_after_authorized",
+        "included_assets",
+        "excluded_assets",
+        "ownership_or_permission_evidence"
+      ],
+      "properties": {
+        "scope_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "canonicalization_version": { "const": "r2d2-c14n-v1" },
+        "payload_type": { "const": "red_team_scope_actions_v1" },
+        "immutable_after_authorized": { "const": true },
+        "included_assets": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "excluded_assets": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "ownership_or_permission_evidence": { "type": "string", "minLength": 1 }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lab_id", "attacker_environment", "target_environment", "network_boundary", "production"],
+      "properties": {
+        "lab_id": { "type": "string", "minLength": 1 },
+        "attacker_environment": { "type": "string", "minLength": 1 },
+        "target_environment": { "type": "string", "minLength": 1 },
+        "network_boundary": { "type": "string", "minLength": 1 },
+        "production": { "const": false }
+      }
+    },
+    "techniques": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed", "prohibited"],
+      "properties": {
+        "allowed": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+        "prohibited": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string" },
+          "allOf": [
+            { "contains": { "const": "destructive_payloads" } },
+            { "contains": { "const": "uncontrolled_denial_of_service" } },
+            { "contains": { "const": "real_data_exfiltration" } },
+            { "contains": { "const": "unauthorized_persistence" } },
+            { "contains": { "const": "target_expansion" } }
+          ]
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_at", "stop_at", "request_rate", "resource_limit", "data_handling"],
+      "properties": {
+        "start_at": { "type": "string", "format": "date-time" },
+        "stop_at": { "type": "string", "format": "date-time" },
+        "request_rate": { "type": "string", "minLength": 1 },
+        "resource_limit": { "type": "string", "minLength": 1 },
+        "data_handling": { "type": "string", "minLength": 1 }
+      }
+    },
+    "credentials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_categories", "temporary", "expires_at", "values_must_not_be_recorded"],
+      "properties": {
+        "required_categories": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "temporary": { "const": true },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "values_must_not_be_recorded": { "const": true }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["independent_log_destination", "observers", "kill_switch", "emergency_contact"],
+      "properties": {
+        "independent_log_destination": { "type": "string", "minLength": 1 },
+        "observers": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+        "kill_switch": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "channel_or_endpoint",
+            "operator_identity",
+            "operator_must_differ_from_executor",
+            "tested_at",
+            "test_valid_until",
+            "test_result",
+            "automatic_stop_on_control_loss"
+          ],
+          "properties": {
+            "method": { "type": "string", "minLength": 1 },
+            "channel_or_endpoint": { "type": "string", "minLength": 1 },
+            "operator_identity": { "type": "string", "minLength": 1 },
+            "operator_must_differ_from_executor": { "const": true },
+            "tested_at": { "type": "string", "format": "date-time" },
+            "test_valid_until": { "type": "string", "format": "date-time" },
+            "test_result": { "const": "PASS" },
+            "automatic_stop_on_control_loss": { "const": true }
+          }
+        },
+        "emergency_contact": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_location",
+        "classification",
+        "purpose",
+        "legal_or_operational_basis",
+        "sanitization",
+        "encryption",
+        "access_control",
+        "digest_sha256",
+        "retention_until",
+        "deletion_owner",
+        "chain_of_custody",
+        "contains_personal_data",
+        "doneda_gate"
+      ],
+      "properties": {
+        "allowed_location": { "type": "string", "minLength": 1 },
+        "classification": { "type": "string", "minLength": 1 },
+        "purpose": { "type": "string", "minLength": 1 },
+        "legal_or_operational_basis": { "type": "string", "minLength": 1 },
+        "sanitization": { "type": "string", "minLength": 1 },
+        "encryption": { "type": "string", "minLength": 1 },
+        "access_control": { "type": "string", "minLength": 1 },
+        "digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "retention_until": { "type": "string", "format": "date-time" },
+        "deletion_owner": { "type": "string", "minLength": 1 },
+        "chain_of_custody": { "type": "string", "minLength": 1 },
+        "contains_personal_data": { "type": "boolean" },
+        "doneda_gate": { "enum": ["PASS", "BLOCKED", "NOT_APPLICABLE"] }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["revoke_credentials", "terminate_processes", "remove_persistence", "restore_or_destroy_lab", "cleanup_evidence"],
+      "properties": {
+        "revoke_credentials": { "const": true },
+        "terminate_processes": { "const": true },
+        "remove_persistence": { "const": true },
+        "restore_or_destroy_lab": { "const": true },
+        "cleanup_evidence": { "type": "string", "minLength": 1 }
+      }
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_occurred",
+        "findings_count",
+        "cleanup_receipt",
+        "residual_risk_owner",
+        "c3po_cepo_handoff_v1"
+      ],
+      "properties": {
+        "execution_occurred": { "type": "boolean" },
+        "findings_count": { "type": "integer", "minimum": 0 },
+        "cleanup_receipt": { "type": "string", "minLength": 1 },
+        "findings_reproduced_by": { "type": "string", "minLength": 1 },
+        "reviewer_differs_from_executor": { "const": true },
+        "reviewer_did_not_author_finding": { "const": true },
+        "reviewer_mode": { "const": "READ_ONLY_AUDIT" },
+        "reviewed_evidence_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "residual_risk_owner": { "const": "roberto" },
+        "c3po_cepo_handoff_v1": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "findings_count": { "minimum": 1 } },
+            "required": ["findings_count"]
+          },
+          "then": {
+            "required": [
+              "findings_reproduced_by",
+              "reviewer_differs_from_executor",
+              "reviewer_did_not_author_finding",
+              "reviewer_mode",
+              "reviewed_evidence_digest_sha256"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": { "findings_count": { "const": 0 } },
+            "required": ["findings_count"]
+          },
+          "then": {
+            "allOf": [
+              { "not": { "required": ["findings_reproduced_by"] } },
+              { "not": { "required": ["reviewed_evidence_digest_sha256"] } }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "stateTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from_state", "to_state", "previous_record_ref", "previous_record_digest_sha256", "changed_at", "changed_by_identity", "transition_evidence"],
+      "properties": {
+        "from_state": { "type": ["string", "null"], "enum": [null, "DRAFT", "AUTHORIZED", "ACTIVE", "CLOSED", "REVOKED"] },
+        "to_state": { "enum": ["DRAFT", "AUTHORIZED", "ACTIVE", "CLOSED", "REVOKED"] },
+        "previous_record_ref": { "type": ["string", "null"], "pattern": "^git-sha256://[0-9a-f]{40}/records/[A-Za-z0-9._-]+\\.json$" },
+        "previous_record_digest_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "changed_at": { "type": "string", "format": "date-time" },
+        "changed_by_identity": { "type": "string", "minLength": 1 },
+        "transition_evidence": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "state": { "const": "DRAFT" } },
+        "required": ["state"]
+      },
+      "then": {
+        "allOf": [
+          { "not": { "required": ["authorization"] } },
+          { "not": { "required": ["closure"] } }
+        ],
+        "properties": {
+          "transition": {
+            "properties": {
+              "from_state": { "type": "null" },
+              "to_state": { "const": "DRAFT" },
+              "previous_record_ref": { "type": "null" },
+              "previous_record_digest_sha256": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "enum": ["AUTHORIZED", "ACTIVE"] } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["authorization"],
+        "not": { "required": ["closure"] },
+        "properties": {
+          "transition": {
+            "properties": {
+              "from_state": { "type": "string" },
+              "previous_record_ref": { "type": "string", "minLength": 1 },
+              "previous_record_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+            }
+          },
+          "authorization": {
+            "properties": {
+              "revoked_at": { "type": "null" },
+              "revoked_by_identity": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "enum": ["CLOSED", "REVOKED"] } },
+        "required": ["state"]
+      },
+      "then": {
+        "required": ["authorization", "closure"],
+        "properties": {
+          "transition": {
+            "properties": {
+              "from_state": { "type": "string" },
+              "previous_record_ref": { "type": "string", "minLength": 1 },
+              "previous_record_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "state": { "const": "REVOKED" } },
+        "required": ["state"]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "required": ["revoked_at", "revoked_by_identity"],
+            "properties": {
+              "revoked_at": { "type": "string", "format": "date-time" },
+              "revoked_by_identity": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "contains_personal_data": { "const": true }
+            },
+            "required": ["contains_personal_data"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "doneda_gate": { "const": "PASS" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

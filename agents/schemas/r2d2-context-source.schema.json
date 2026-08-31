@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/r2d2-context-source.schema.json",
+  "title": "R2D2 deterministic context source bundle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_schema", "repository", "facts"],
+  "properties": {
+    "source_schema": { "const": "r2d2-context-source-v1" },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_id", "base_sha", "head_sha", "source_root_realpath", "exact_pathset_digest_sha256"],
+      "properties": {
+        "repository_id": { "type": "string", "minLength": 1 },
+        "base_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "source_root_realpath": { "type": "string", "pattern": "^/" },
+        "exact_pathset_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "facts": { "$ref": "https://cereusia.local/schemas/r2d2-task-context.schema.json#/$defs/facts" }
+  }
+}

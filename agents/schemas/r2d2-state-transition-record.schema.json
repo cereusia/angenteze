@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/r2d2-state-transition-record.schema.json",
+  "title": "R2D2 immutable prior-state record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema",
+    "record_type",
+    "record_id",
+    "revision",
+    "state",
+    "artifact_ref",
+    "artifact_digest_sha256"
+  ],
+  "properties": {
+    "record_schema": { "const": "r2d2-state-transition-record-v1" },
+    "record_type": { "enum": ["red_team_engagement", "incident_response"] },
+    "record_id": { "type": "string", "minLength": 1 },
+    "revision": { "type": "integer", "minimum": 1 },
+    "state": { "enum": ["DRAFT", "AUTHORIZED", "ACTIVE", "CONTAINED", "RECOVERED", "CLOSED", "REVOKED"] },
+    "artifact_ref": { "type": "string", "pattern": "^git-sha256://[0-9a-f]{40}/[A-Za-z0-9._/-]+\\.json$" },
+    "artifact_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "record_type": { "const": "red_team_engagement" } }, "required": ["record_type"] },
+      "then": { "properties": { "state": { "enum": ["DRAFT", "AUTHORIZED", "ACTIVE", "CLOSED", "REVOKED"] } } }
+    }
+  ]
+}

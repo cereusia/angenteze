@@ -1,0 +1,13 @@
+schema_version: 1
+version: 0.1.0-draft.8
+policy_id: r2d2-context-trust-policy-v1
+state: SPEC
+runtime_enabled: false
+trust_root_ref: codex-local-trust-root-v1
+authentication_method: external_identity_attestation
+trusted_verifiers:
+  - identity: eliane
+    credential_fingerprint_sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+    allowed_assertions: [task_context]
+    independence_from: [producer_identity, handoff_owner]
+failure_state: BLOCKED_INTEGRATION

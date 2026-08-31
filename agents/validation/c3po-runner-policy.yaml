@@ -1,0 +1,16 @@
+schema_version: 1
+version: 0.1.0-draft.8
+policy_id: c3po-direct-runner-policy-v1
+state: SPEC
+runtime_enabled: false
+runners:
+  ruby-script-v1:
+    executable_realpath: /usr/bin/ruby
+    executable_digest_sha256: dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    required_source_argv_index: 1
+    direct_exec_only: true
+    arbitrary_shell: DENY
+    inline_code: DENY
+    forbidden_executable_basenames: [bash, dash, fish, ksh, pwsh, sh, zsh]
+    forbidden_inline_flags: [-c, -e, --eval, --execute]
+failure_state: BLOCKED_VALIDATION

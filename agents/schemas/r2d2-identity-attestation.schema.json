@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/r2d2-identity-attestation.schema.json",
+  "title": "R2D2 external identity attestation v1",
+  "$comment": "Documentary envelope only. Real cryptographic authentication remains NOT_STARTED.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attestation_schema",
+    "identity",
+    "credential_fingerprint_sha256",
+    "trust_root_ref",
+    "assertion",
+    "authenticated"
+  ],
+  "properties": {
+    "attestation_schema": { "const": "r2d2-external-identity-attestation-v1" },
+    "identity": { "type": "string", "minLength": 1 },
+    "credential_fingerprint_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "trust_root_ref": { "const": "codex-local-trust-root-v1" },
+    "assertion": { "const": "task_context" },
+    "authenticated": { "const": true }
+  }
+}

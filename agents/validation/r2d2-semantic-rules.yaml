@@ -1,0 +1,92 @@
+schema_version: 1
+version: 0.1.0-draft.8
+state: SPEC
+runtime_enabled: false
+canonicalization_contract: docs/security/R2D2_CANONICAL_DIGESTS.md
+
+purpose: >-
+  Definir invariantes cruzados que JSON Schema nao expressa sozinho. Estas
+  regras sao obrigatorias antes de qualquer ativacao futura.
+
+rules:
+  - id: RED_IDENTITY_SEPARATION
+    applies_to: red_team_engagement
+    condition: approver_executor_kill_switch_operator_and_reviewer_are_distinct_as_required
+    failure_state: BLOCKED_ROE
+  - id: RED_TIME_AND_REVOCATION
+    applies_to: red_team_engagement
+    condition: approved_at_before_current_time_before_expires_at_and_authorization_not_revoked
+    failure_state: BLOCKED_ROE
+  - id: RED_KILL_SWITCH_INDEPENDENCE
+    applies_to: red_team_engagement
+    condition: kill_switch_operator_differs_from_executor_is_current_tested_and_stops_on_control_loss
+    failure_state: BLOCKED_ROE
+  - id: RED_SCOPE_DIGEST
+    applies_to: red_team_engagement
+    condition: recorded_scope_digest_equals_recalculated_canonical_scope_actions_digest
+    failure_state: BLOCKED_ROE
+  - id: RED_MINIMUM_PROHIBITIONS
+    applies_to: red_team_engagement
+    condition: all_permanent_prohibitions_are_present
+    failure_state: BLOCKED_ROE
+  - id: RED_RESIDUAL_RISK_OWNER
+    applies_to: red_team_engagement
+    condition: residual_risk_owner_is_roberto
+    failure_state: BLOCKED_ROE
+  - id: RED_STATE_TRANSITION
+    applies_to: red_team_engagement
+    condition: transition_matches_state_loaded_from_immutable_prior_record_and_declared_state_machine
+    failure_state: BLOCKED_ROE
+  - id: IR_DOUBLE_AUTHORIZATION
+    applies_to: incident_response
+    condition: roberto_and_tereza_approved_the_same_recalculated_scope_actions_digest_and_executor_is_distinct
+    failure_state: BLOCKED_INCIDENT
+  - id: IR_TIME_AND_REVOCATION
+    applies_to: incident_response
+    condition: both_approvals_are_current_unexpired_and_unrevoked
+    failure_state: BLOCKED_INCIDENT
+  - id: IR_KILL_SWITCH_INDEPENDENCE
+    applies_to: incident_response
+    condition: kill_switch_operator_differs_from_executor_is_tested_and_stops_on_control_loss
+    failure_state: BLOCKED_INCIDENT
+  - id: IR_STATE_TRANSITION
+    applies_to: incident_response
+    condition: transition_matches_state_loaded_from_immutable_prior_record_and_declared_state_machine
+    failure_state: BLOCKED_INCIDENT
+  - id: HANDOFF_GATE_COMPLETENESS
+    applies_to: r2d2_c3po_cepo_handoff
+    condition: trusted_receipt_source_bundle_derived_facts_and_canonical_gate_catalog_are_consistent
+    failure_state: BLOCKED_INTEGRATION
+  - id: HANDOFF_STATE_CONSISTENCY
+    applies_to: r2d2_c3po_cepo_handoff
+    condition: committed_requires_all_artifacts_committed_all_gates_resolved_no_conflict_and_passing_tests
+    failure_state: BLOCKED_INTEGRATION
+  - id: C3PO_ZERO_MUTATION
+    applies_to: c3po_integration_validation
+    condition: source_git_head_branch_refs_status_stage_and_boundary_are_unchanged
+    failure_state: BLOCKED_VALIDATION
+  - id: C3PO_HANDOFF_AUTHORIZATION_BINDING
+    applies_to: c3po_integration_validation
+    condition: immutable_handoff_direct_runner_argv_scope_digest_boundaries_and_current_unrevoked_authorization_match
+    failure_state: BLOCKED_VALIDATION
+  - id: C3PO_PATHSET_ISOLATION
+    applies_to: c3po_integration_validation
+    condition: output_realpaths_are_ephemeral_external_resolved_and_inside_the_declared_output_root
+    failure_state: BLOCKED_VALIDATION
+  - id: C3PO_EXECUTION_RESULT
+    applies_to: c3po_integration_validation
+    condition: pass_matches_observed_result_allowed_exit_code_and_complete_expected_outputs
+    failure_state: BLOCKED_VALIDATION
+  - id: C3PO_PRECHECK_FAIL_CLOSED
+    applies_to: c3po_integration_validation
+    condition: blocked_precheck_is_not_run_has_null_times_and_exit_empty_outputs_and_no_tree_proofs
+    failure_state: BLOCKED_VALIDATION
+
+required_validator_behavior:
+  manifest_rule_ids_equal_implementation_rule_ids: REQUIRED
+  every_declared_rule_has_versioned_case: REQUIRED
+  unknown_rule: DENY
+  missing_input: DENY
+  invalid_type: DENY
+  failed_condition: use_rule_failure_state
+  runtime_activation_from_this_manifest: DENY

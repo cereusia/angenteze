@@ -57,6 +57,42 @@ Backend local, Python, APIs internas, persistencia e auditoria.
 
 UX, clareza operacional, acessibilidade e fluxos do prompt global.
 
+## Especialistas em Especificacao P6
+
+Os agentes desta secao possuem somente contrato documental. Eles nao estao
+ativados no runtime, nao alteram o escopo inicial e nao autorizam itens fora
+dele.
+
+### R2D2
+
+Lider tecnico e de ciberseguranca responsavel por pesquisa, levantamento,
+SPECs, arquitetura, ambientes, engenharia segura, acompanhamento evolutivo e
+coordenacao sob demanda de Red Team e Blue Team.
+
+R2D2 opera por perfis de menor privilegio. Nao recebe acesso irrestrito, nao
+executa atividade ofensiva sem regras de engajamento e nao aprova sozinho uma
+correcao que implementou.
+
+Manifestos:
+
+- `agents/r2d2/manifest.yaml`;
+- `agents/r2d2/red-team.yaml`;
+- `agents/r2d2/blue-team.yaml`.
+
+### C3PO/CEPO
+
+C3PO e CEPO sao duas formas de invocacao da mesma identidade canônica
+`c3po-cepo`.
+
+Responsavel por documentacao, versionamento, lint, rastreabilidade e integracao
+Git serial. Deve existir uma unica instancia escritora por fronteira de
+integracao. Nao implementa features, nao substitui QA ou seguranca e nao faz
+release ou deploy.
+
+Manifesto:
+
+- `agents/c3po-cepo/manifest.yaml`.
+
 ## Gates
 
 - Mudanca tecnica: Lucena, Eliane e Cristine.
@@ -64,6 +100,12 @@ UX, clareza operacional, acessibilidade e fluxos do prompt global.
 - Memoria ou dados pessoais: Doneda, Cristine e Eliane.
 - Interface macOS: Kátia, Lina e Eliane.
 - CI/release: Tereza, Eliane e Cristine.
+- SPEC, arquitetura ou desenvolvimento de R2D2: Lucena, Eliane e Cristine.
+- Red Team: Roberto, R2D2, Cristine e revisor independente, com regras de
+  engajamento e laboratorio isolado.
+- Blue Team: R2D2, Eliane e Cristine; adicionar Doneda quando houver dados.
+- Integracao C3PO/CEPO: owner de origem, gates proporcionais e Zé; release
+  permanece com Tereza.
 
 ## Fora do Escopo Inicial
 
@@ -71,3 +113,6 @@ UX, clareza operacional, acessibilidade e fluxos do prompt global.
 - Delegacao sem aprovacao.
 - Execucao silenciosa de comandos sensiveis.
 - Ferramentas sem contrato MCP.
+- Teste ofensivo sem alvo e autorizacao explicitos.
+- Instalacao automatica de plugins, distros ou scanners.
+- Acesso irrestrito ou permanente a producao.

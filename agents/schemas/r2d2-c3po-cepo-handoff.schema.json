@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cereusia.local/schemas/r2d2-c3po-cepo-handoff.schema.json",
+  "title": "R2D2 to C3PO/CEPO handoff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "handoff_id",
+    "created_at",
+    "source_agent",
+    "target_agent",
+    "state",
+    "owner_id",
+    "objective",
+    "repository",
+    "exact_pathset",
+    "artifacts",
+    "dependencies",
+    "task_context_binding",
+    "gate_catalog_version",
+    "gate_catalog_digest_sha256",
+    "gates",
+    "relationships",
+    "version_impact",
+    "tests",
+    "rollback",
+    "next_action"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "handoff_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_agent": { "const": "r2d2-global" },
+    "target_agent": { "const": "c3po-cepo" },
+    "state": {
+      "enum": ["SPEC", "LOCAL", "TESTED", "COMMITTED", "BLOCKED"]
+    },
+    "owner_id": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string", "minLength": 1 },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_id", "branch", "head_sha", "worktree_id", "source_root_realpath"],
+      "properties": {
+        "repository_id": { "type": "string", "minLength": 1 },
+        "branch": { "type": "string", "minLength": 1 },
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "worktree_id": { "type": "string", "minLength": 1 },
+        "source_root_realpath": { "type": "string", "pattern": "^/" }
+      }
+    },
+    "exact_pathset": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "digest_sha256", "state"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "state": { "enum": ["SPEC", "LOCAL", "TESTED", "COMMITTED"] }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "task_context_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_schema",
+        "context_id",
+        "context_ref",
+        "context_digest_sha256",
+        "producer_identity",
+        "verifier_identity",
+        "verification_id",
+        "verification_receipt_ref",
+        "verification_receipt_digest_sha256",
+        "verified_at"
+      ],
+      "properties": {
+        "context_schema": { "const": "r2d2-task-context-v1" },
+        "context_id": { "type": "string", "minLength": 1 },
+        "context_ref": { "type": "string", "pattern": "^store://contexts/[A-Za-z0-9._-]+\\.json$" },
+        "context_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "producer_identity": { "type": "string", "minLength": 1 },
+        "verifier_identity": { "type": "string", "minLength": 1 },
+        "verification_id": { "type": "string", "minLength": 1 },
+        "verification_receipt_ref": { "type": "string", "pattern": "^store://verifications/[A-Za-z0-9._-]+\\.json$" },
+        "verification_receipt_digest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "verified_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "gate_catalog_version": { "const": "r2d2-global@0.1.0-draft.8" },
+    "gate_catalog_digest_sha256": { "const": "e4c026b0f63b96020163d86f62ff7338d26af8e87e61f15248045cc3221ef869" },
+    "gates": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "applicability", "when_context", "status", "owner", "evidence"],
+        "properties": {
+          "id": {
+            "enum": [
+              "SPEC_APPROVED",
+              "SECURITY_DESIGN_REVIEWED",
+              "PRIVACY_REVIEWED",
+              "LAB_ISOLATED",
+              "RED_AUTHORIZED",
+              "FINDINGS_REPRODUCED",
+              "REMEDIATION_IMPLEMENTED",
+              "SECURITY_VERIFIED",
+              "C3PO_CEPO_INTEGRATED",
+              "RELEASE_READY",
+              "HUMAN_ACCEPTED"
+            ]
+          },
+          "applicability": { "enum": ["APPLICABLE", "NOT_APPLICABLE"] },
+          "when_context": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["PASS", "PENDING", "BLOCKED", "NOT_APPLICABLE"] },
+          "owner": { "type": "string", "minLength": 1 },
+          "evidence": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "applicability": { "const": "NOT_APPLICABLE" } },
+              "required": ["applicability"]
+            },
+            "then": { "properties": { "status": { "const": "NOT_APPLICABLE" } } }
+          },
+          {
+            "if": {
+              "properties": { "applicability": { "const": "APPLICABLE" } },
+              "required": ["applicability"]
+            },
+            "then": { "properties": { "status": { "enum": ["PASS", "PENDING", "BLOCKED"] } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "SPEC_APPROVED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "ze" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "SECURITY_DESIGN_REVIEWED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "cristine" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "PRIVACY_REVIEWED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "doneda" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "LAB_ISOLATED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "tereza" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "RED_AUTHORIZED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "roberto" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "FINDINGS_REPRODUCED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "eliane_or_named_independent_reviewer" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "REMEDIATION_IMPLEMENTED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "named_writer" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "SECURITY_VERIFIED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "cristine" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "C3PO_CEPO_INTEGRATED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "c3po-cepo" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "RELEASE_READY" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "tereza" } } }
+          },
+          {
+            "if": { "properties": { "id": { "const": "HUMAN_ACCEPTED" } }, "required": ["id"] },
+            "then": { "properties": { "owner": { "const": "roberto" } } }
+          }
+        ]
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["party_a", "party_b", "classification", "proof"],
+        "properties": {
+          "party_a": { "type": "string", "minLength": 1 },
+          "party_b": { "type": "string", "minLength": 1 },
+          "classification": {
+            "enum": ["isolada", "coordenacao_necessaria", "integracao_serial", "conflito"]
+          },
+          "proof": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "version_impact": { "enum": ["none", "patch", "minor", "major"] },
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "status", "evidence"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_APPLICABLE"] },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "rollback": { "type": "string", "minLength": 1 },
+    "next_action": { "type": "string", "minLength": 1 }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "state": { "const": "COMMITTED" } },
+        "required": ["state"]
+      },
+      "then": {
+        "properties": {
+          "artifacts": {
+            "not": {
+              "contains": {
+                "properties": { "state": { "enum": ["SPEC", "LOCAL", "TESTED"] } },
+                "required": ["state"]
+              }
+            }
+          },
+          "gates": {
+            "contains": {
+              "properties": {
+                "id": { "const": "C3PO_CEPO_INTEGRATED" },
+                "applicability": { "const": "APPLICABLE" },
+                "status": { "const": "PASS" }
+              },
+              "required": ["id", "applicability", "status"]
+            },
+            "not": {
+              "contains": {
+                "properties": { "status": { "enum": ["BLOCKED", "PENDING"] } },
+                "required": ["status"]
+              }
+            }
+          },
+          "relationships": {
+            "not": {
+              "contains": {
+                "properties": { "classification": { "const": "conflito" } },
+                "required": ["classification"]
+              }
+            }
+          },
+          "tests": {
+            "contains": {
+              "properties": { "status": { "const": "PASS" } },
+              "required": ["status"]
+            },
+            "not": {
+              "contains": {
+                "properties": { "status": { "enum": ["FAIL", "NOT_RUN"] } },
+                "required": ["status"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "contains": {
+              "properties": { "status": { "const": "BLOCKED" } },
+              "required": ["status"]
+            }
+          }
+        },
+        "required": ["gates"]
+      },
+      "then": {
+        "properties": { "state": { "const": "BLOCKED" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "relationships": {
+            "contains": {
+              "properties": { "classification": { "const": "conflito" } },
+              "required": ["classification"]
+            }
+          }
+        },
+        "required": ["relationships"]
+      },
+      "then": {
+        "properties": { "state": { "const": "BLOCKED" } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tests": {
+            "contains": {
+              "properties": { "status": { "const": "FAIL" } },
+              "required": ["status"]
+            }
+          }
+        },
+        "required": ["tests"]
+      },
+      "then": {
+        "properties": { "state": { "const": "BLOCKED" } }
+      }
+    }
+  ]
+}
